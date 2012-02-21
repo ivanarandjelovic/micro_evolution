@@ -1,5 +1,7 @@
 package org.aivan.microevolution.process;
 
+import org.aivan.microevolution.worlds.World;
+
 /**
  * Main class for starting and executing evolutions.
  * 
@@ -8,11 +10,31 @@ package org.aivan.microevolution.process;
  */
 public class ME {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		System.out.println("Not implemented yet!");
+	World world = null;
+	
+	public ME(World world) {
+		super();
+		this.world = world;
+		world.init();
 	}
 
+
+
+	public void runWorld(long ticks) {
+		for(long i = 0 ; i< ticks; i++) {
+			world.tick();
+		}
+	}
+	
+	public String getReport() {
+		String report = "";
+		
+		report += "World : " + world.getClass().getName();
+		report += "\nWorld's tick count: "+world.getTickCounter();
+		report += "\nWorld's lifeForm count: "+world.getLifeForms().size();
+		report += "\nWorld's food count: "+world.getFood().size();
+		
+		
+		return  report;
+	}
 }

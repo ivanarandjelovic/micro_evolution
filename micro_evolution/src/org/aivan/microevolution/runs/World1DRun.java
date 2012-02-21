@@ -1,0 +1,31 @@
+package org.aivan.microevolution.runs;
+
+import org.aivan.microevolution.food.ConstantFoodFactory;
+import org.aivan.microevolution.process.ME;
+import org.aivan.microevolution.worlds.World;
+import org.aivan.microevolution.worlds.World1D;
+
+public class World1DRun {
+
+	private static final long TICKS_TO_RUN_REPORT = 1;
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		World world = new World1D();
+		world.setFoodFactory(new ConstantFoodFactory());
+		ME me = new ME(world);
+
+		System.out.println("Report at START: ");
+		System.out.println(me.getReport());
+
+		me.runWorld(TICKS_TO_RUN_REPORT);
+
+		System.out.println("Report at END: ");
+		System.out.println(me.getReport());
+	}
+
+}

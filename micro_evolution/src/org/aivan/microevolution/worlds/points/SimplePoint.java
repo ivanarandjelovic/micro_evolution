@@ -10,7 +10,7 @@ import org.aivan.microevolution.worlds.World;
  */
 public class SimplePoint extends Point {
 
-	SimplePoint(World world) {
+	public SimplePoint(World world) {
 		super(world);
 	}
 

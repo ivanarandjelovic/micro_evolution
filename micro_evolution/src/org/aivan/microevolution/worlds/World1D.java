@@ -1,17 +1,24 @@
 package org.aivan.microevolution.worlds;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.aivan.microevolution.worlds.points.Point;
+import org.aivan.microevolution.worlds.points.SimplePoint;
+
+
 
 public class World1D extends World {
 
-	List<Point> points = null;
-
+	private static final long POINT_COUNT = 100;
 	@Override
-	public void tick() {
-				
+	public void init() {
+		points = new ArrayList<Point>();
+		for(long i=0;i<POINT_COUNT;i++) {
+			points.add(new SimplePoint(this));
+		}
+		foodFactory.init();
 	}
+
 	
-	
+			
 }

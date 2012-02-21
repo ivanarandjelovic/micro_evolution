@@ -7,11 +7,15 @@ public abstract class FoodFactory implements Tickable {
 	
 	World world = null;
 
-	public FoodFactory(World world) {
+	public FoodFactory() {
 		super();
-		this.world = world;
 	}
 	
-	
+	public abstract void init();
 
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	
 }

@@ -5,6 +5,6 @@ package org.aivan.microevolution.food;
  * @author aivan
  *
  */
-public abstract class Food {
+public class Food {
 
 }
