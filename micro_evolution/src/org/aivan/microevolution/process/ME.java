@@ -1,4 +1,4 @@
-package org.aivan.microevolution;
+package org.aivan.microevolution.process;
 
 /**
  * Main class for starting and executing evolutions.
