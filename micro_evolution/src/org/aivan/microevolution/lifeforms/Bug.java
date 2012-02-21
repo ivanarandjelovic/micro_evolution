@@ -1,5 +1,5 @@
 package org.aivan.microevolution.lifeforms;
 
-public class Bug {
+public class Bug implements LifeForm {
 
 }

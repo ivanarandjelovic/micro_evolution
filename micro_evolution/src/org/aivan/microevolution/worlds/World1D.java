@@ -1,5 +1,17 @@
 package org.aivan.microevolution.worlds;
 
-public class World1D {
+import java.util.List;
 
+import org.aivan.microevolution.worlds.points.Point;
+
+public class World1D extends World {
+
+	List<Point> points = null;
+
+	@Override
+	public void tick() {
+				
+	}
+	
+	
 }
