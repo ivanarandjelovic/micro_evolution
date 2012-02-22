@@ -1,6 +1,7 @@
 package org.aivan.microevolution.process;
 
 import org.aivan.microevolution.worlds.World;
+import org.apache.log4j.Logger;
 
 /**
  * Main class for starting and executing evolutions.
@@ -10,18 +11,24 @@ import org.aivan.microevolution.worlds.World;
  */
 public class ME {
 
+	static final Logger log = Logger.getLogger(ME.class);
+
 	World world = null;
 	
 	public ME(World world) {
 		super();
+		log.debug("MicroEvolution created, world: "+world);
 		this.world = world;
+		log.debug("Initializing world ...");
 		world.init();
 	}
 
 
 
 	public void runWorld(long ticks) {
+		log.debug("Ticking world for: "+ticks+" ticks ...");
 		for(long i = 0 ; i< ticks; i++) {
+			log.debug("Tick: "+i+" ticking ...");
 			world.tick();
 		}
 	}

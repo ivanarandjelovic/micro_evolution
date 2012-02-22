@@ -9,9 +9,12 @@ import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
 import org.aivan.microevolution.worlds.points.Point;
+import org.apache.log4j.Logger;
 
 public abstract class World implements Tickable {
-	
+
+	static final Logger log = Logger.getLogger(World.class);
+
 	private long tickCounter = 0;
 	protected LifeFormFactory lifeFormFactory = null;
 	protected List<LifeForm> lifeForms = new ArrayList<LifeForm>();
@@ -28,6 +31,9 @@ public abstract class World implements Tickable {
 	}
 
 	public void setFoodFactory(FoodFactory foodFactory) {
+
+		log.debug("FoodFactory set: " + foodFactory);
+
 		this.foodFactory = foodFactory;
 		this.foodFactory.setWorld(this);
 	}
@@ -38,8 +44,16 @@ public abstract class World implements Tickable {
 
 	@Override
 	public void tick() {
-		tickCounter++;		foodFactory.tick();
-		for(LifeForm lifeForm : lifeForms) {
+
+		tickCounter++;
+		
+		log.debug("tick, new tickCounter: "+tickCounter);
+		
+		log.debug("ticking foodFactory ...");
+		foodFactory.tick();
+
+		log.debug("ticking life forms ...");
+		for (LifeForm lifeForm : lifeForms) {
 			lifeForm.tick();
 		}
 	}
@@ -51,7 +65,7 @@ public abstract class World implements Tickable {
 	public List<Food> getFood() {
 		return food;
 	}
-	
+
 	public abstract void init();
 
 	public LifeFormFactory getLifeFormFactory() {
@@ -59,9 +73,11 @@ public abstract class World implements Tickable {
 	}
 
 	public void setLifeFormFactory(LifeFormFactory lifeFormFactory) {
+		
+		log.debug("LifeFormFactory set: "+lifeFormFactory);
+		
 		this.lifeFormFactory = lifeFormFactory;
 		this.lifeFormFactory.setWorld(this);
 	}
-	
-	
+
 }

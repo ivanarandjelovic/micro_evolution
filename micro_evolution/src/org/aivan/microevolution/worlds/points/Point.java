@@ -6,6 +6,7 @@ import java.util.Set;
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.World;
+import org.apache.log4j.Logger;
 
 /**
  * Abstract class for world points. They belong to a world, and have a set of
@@ -16,9 +17,11 @@ import org.aivan.microevolution.worlds.World;
  */
 public abstract class Point {
 
+	static final Logger log = Logger.getLogger(Point.class);
+
 	World world = null;
 
-	Set<LifeForm> lifeForms =  new HashSet<LifeForm>();;
+	Set<LifeForm> lifeForms = new HashSet<LifeForm>();;
 
 	Food food = null;
 
@@ -28,10 +31,12 @@ public abstract class Point {
 	}
 
 	public void lifeFormEntered(LifeForm lifeForm) {
+		log.debug("Life form entetered: " + lifeForm);
 		lifeForms.add(lifeForm);
 	}
 
 	public void lifeFormLeft(LifeForm lifeForm) {
+		log.debug("Life form left: " + lifeForm);
 		lifeForms.remove(lifeForm);
 	}
 
@@ -40,6 +45,9 @@ public abstract class Point {
 	}
 
 	public void addFood(Food food) {
+		
+		log.debug("Food added" + food);
+		
 		if (this.food == null) {
 			this.food = food;
 			world.getFood().add(food);
@@ -50,6 +58,9 @@ public abstract class Point {
 
 	public Food removeFood() {
 		Food eatenFood = this.food;
+		
+		log.debug("Food removed" + eatenFood);
+		
 		if (this.food != null) {
 			world.getFood().remove(this.food);
 			this.food = null;
