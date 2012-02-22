@@ -7,11 +7,13 @@ import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.food.FoodFactory;
 import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.lifeforms.LifeForm;
+import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
 import org.aivan.microevolution.worlds.points.Point;
 
 public abstract class World implements Tickable {
 	
 	private long tickCounter = 0;
+	protected LifeFormFactory lifeFormFactory = null;
 	protected List<LifeForm> lifeForms = new ArrayList<LifeForm>();
 	protected FoodFactory foodFactory = null;
 	List<Food> food = new ArrayList<Food>();
@@ -51,4 +53,15 @@ public abstract class World implements Tickable {
 	}
 	
 	public abstract void init();
+
+	public LifeFormFactory getLifeFormFactory() {
+		return lifeFormFactory;
+	}
+
+	public void setLifeFormFactory(LifeFormFactory lifeFormFactory) {
+		this.lifeFormFactory = lifeFormFactory;
+		this.lifeFormFactory.setWorld(this);
+	}
+	
+	
 }

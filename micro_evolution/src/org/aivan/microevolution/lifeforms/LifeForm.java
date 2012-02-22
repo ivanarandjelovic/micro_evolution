@@ -3,7 +3,8 @@ package org.aivan.microevolution.lifeforms;
 import org.aivan.microevolution.brains.Brain;
 import org.aivan.microevolution.general.Tickable;
 
-public interface LifeForm extends Tickable {
+public abstract class LifeForm implements Tickable {
 
-	Brain brain = null;
+	protected Brain brain = null;
+	
 }

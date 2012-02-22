@@ -1,11 +1,16 @@
 package org.aivan.microevolution.lifeforms;
 
-public class Bug1 implements LifeForm {
+import org.aivan.microevolution.brains.Brain;
 
+public class Bug1 extends LifeForm {
+
+	public Bug1(Brain brain) {
+		this.brain = brain;
+	}
+	
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		
+		brain.tick();
 	}
 
 }

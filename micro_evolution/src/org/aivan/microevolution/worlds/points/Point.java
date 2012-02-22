@@ -1,5 +1,6 @@
 package org.aivan.microevolution.worlds.points;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.aivan.microevolution.food.Food;
@@ -17,7 +18,7 @@ public abstract class Point {
 
 	World world = null;
 
-	Set<LifeForm> lifeForms = null;
+	Set<LifeForm> lifeForms =  new HashSet<LifeForm>();;
 
 	Food food = null;
 
@@ -26,11 +27,11 @@ public abstract class Point {
 		this.world = world;
 	}
 
-	void lifeFormEntered(LifeForm lifeForm) {
+	public void lifeFormEntered(LifeForm lifeForm) {
 		lifeForms.add(lifeForm);
 	}
 
-	void lifeFormLeft(LifeForm lifeForm) {
+	public void lifeFormLeft(LifeForm lifeForm) {
 		lifeForms.remove(lifeForm);
 	}
 
@@ -45,6 +46,17 @@ public abstract class Point {
 		} else {
 			throw new RuntimeException("Food already exists on this point!");
 		}
+	}
+
+	public Food removeFood() {
+		Food eatenFood = this.food;
+		if (this.food != null) {
+			world.getFood().remove(this.food);
+			this.food = null;
+		} else {
+			throw new RuntimeException("Food does not exists here!");
+		}
+		return eatenFood;
 	}
 
 }
