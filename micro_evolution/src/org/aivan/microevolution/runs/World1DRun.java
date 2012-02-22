@@ -7,7 +7,7 @@ import org.aivan.microevolution.worlds.World1D;
 
 public class World1DRun {
 
-	private static final long TICKS_TO_RUN_REPORT = 1;
+	private static final long TICKS_TO_RUN_REPORT = 10;
 
 	/**
 	 * @param args
@@ -19,12 +19,14 @@ public class World1DRun {
 		world.setFoodFactory(new ConstantFoodFactory());
 		ME me = new ME(world);
 
-		System.out.println("Report at START: ");
+		System.out.println("\nReport at START: ");
+		System.out.println("================ ");
 		System.out.println(me.getReport());
 
 		me.runWorld(TICKS_TO_RUN_REPORT);
 
-		System.out.println("Report at END: ");
+		System.out.println("\nReport at END: ");
+		System.out.println("================ ");
 		System.out.println(me.getReport());
 	}
 
