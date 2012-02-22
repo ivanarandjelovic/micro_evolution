@@ -31,22 +31,26 @@ public abstract class Point {
 	}
 
 	public void lifeFormEntered(LifeForm lifeForm) {
-		log.debug("Life form entetered: " + lifeForm);
+		log.trace("Life form entetered: " + lifeForm);
 		lifeForms.add(lifeForm);
 	}
 
 	public void lifeFormLeft(LifeForm lifeForm) {
-		log.debug("Life form left: " + lifeForm);
+		log.trace("Life form left: " + lifeForm);
 		lifeForms.remove(lifeForm);
 	}
 
 	public Food getFood() {
 		return food;
 	}
+	
+	public Set<LifeForm> getLifeForms() {
+		return lifeForms;
+	}
 
 	public void addFood(Food food) {
 		
-		log.debug("Food added" + food);
+		log.trace("Food added" + food);
 		
 		if (this.food == null) {
 			this.food = food;
@@ -59,7 +63,7 @@ public abstract class Point {
 	public Food removeFood() {
 		Food eatenFood = this.food;
 		
-		log.debug("Food removed" + eatenFood);
+		log.trace("Food removed" + eatenFood);
 		
 		if (this.food != null) {
 			world.getFood().remove(this.food);

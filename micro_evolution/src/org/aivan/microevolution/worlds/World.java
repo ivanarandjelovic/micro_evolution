@@ -47,12 +47,12 @@ public abstract class World implements Tickable {
 
 		tickCounter++;
 		
-		log.debug("tick, new tickCounter: "+tickCounter);
+		log.trace("tick, new tickCounter: "+tickCounter);
 		
-		log.debug("ticking foodFactory ...");
+		log.trace("ticking foodFactory ...");
 		foodFactory.tick();
 
-		log.debug("ticking life forms ...");
+		log.trace("ticking life forms ...");
 		for (LifeForm lifeForm : lifeForms) {
 			lifeForm.tick();
 		}
@@ -78,6 +78,82 @@ public abstract class World implements Tickable {
 		
 		this.lifeFormFactory = lifeFormFactory;
 		this.lifeFormFactory.setWorld(this);
+	}
+
+	/**
+	 * Return string representation of the current world's life forms
+	 * @return
+	 */
+	public String getLifeFormReport() {
+		String result = "";
+		int count = 0;
+		for(Point point : points) {
+			
+			if(count % 30 == 0) {
+				result += "\n";
+			}
+			
+			if(point.getLifeForms().size()==0) {
+				result += " [] ";
+			} else {
+				result += " ["+point.getLifeForms().size()+"]";
+			}
+			count ++;
+		}
+		
+		return result;
+	}
+
+	public String getFoodReport() {
+		String result = "";
+		int count = 0;
+		for(Point point : points) {
+			
+			if(count % 30 == 0) {
+				result += "\n";
+			}
+			
+			if(point.getFood()==null) {
+				result += " [] ";
+			} else {
+				result += " [f]";
+			}
+			count ++;
+		}
+		
+		return result;
+	}
+
+	public String getLifeFormAndFoodReport() {
+		String result = "";
+		int count = 0;
+		for(Point point : points) {
+			
+			if(count % 30 == 0) {
+				result += "\n";
+			}
+			
+			result+=" [";
+			
+			if(point.getLifeForms().size()==0) {
+				result += " ";
+			} else {
+				result += point.getLifeForms().size()+"";
+			}
+
+			result+="/";
+
+			if(point.getFood()==null) {
+				result += " ";
+			} else {
+				result += "f";
+			}
+
+			result+="]";
+			count ++;
+		}
+		
+		return result;
 	}
 
 }
