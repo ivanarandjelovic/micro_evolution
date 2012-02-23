@@ -6,5 +6,6 @@ public abstract class Neuron {
 	
 	static final Logger log = Logger.getLogger(Neuron.class);
 	
+	//TODO: Implement neurons
 
 }

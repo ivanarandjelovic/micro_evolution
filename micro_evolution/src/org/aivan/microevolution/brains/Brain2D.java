@@ -1,5 +1,7 @@
 package org.aivan.microevolution.brains;
 
+import java.util.List;
+
 import org.aivan.microevolution.brains.actions.Action;
 import org.apache.log4j.Logger;
 
@@ -15,9 +17,10 @@ public class Brain2D extends Brain {
 	}
 
 	@Override
-	public Action getAction() {
+	public List<Action> getActions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

@@ -1,5 +1,8 @@
 package org.aivan.microevolution.brains;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.brains.actions.EatAction;
 import org.aivan.microevolution.brains.actions.MoveAction;
@@ -9,6 +12,8 @@ import org.apache.log4j.Logger;
  * Not really smart brain, should behave predictable, mostly intended for
  * testing.
  * 
+ * 33% eating, 33% moving, 33% doing nothing 
+ * 
  * @author iarandjelovic
  * 
  */
@@ -16,22 +21,25 @@ public class DummyBrain extends Brain {
 
 	static final Logger log = Logger.getLogger(DummyBrain.class);
 
-	private long counter = 0;
+	private long tickCounter = 0;
 
 	@Override
 	public void tick() {
-		log.trace("tick ...");
-		counter++;
+		tickCounter++;
+		log.trace("tick ... (counter: "+tickCounter+")");
 	}
 
 	@Override
-	public Action getAction() {
-
+	public List<Action> getActions() {
+		ArrayList<Action> actions = new ArrayList<Action>();
+		
 		Action action = null;
 
-		if (counter % 3 == 0) {
+		int rand = (int) Math.floor(Math.random() * 3);
+
+		if (rand % 3 == 0) {
 			action = new MoveAction();
-		} else if (counter % 3 == 1) {
+		} else if (rand % 3 == 1) {
 			action = new EatAction();
 		} else {
 			action = null;
@@ -39,7 +47,11 @@ public class DummyBrain extends Brain {
 
 		log.trace("returning: " + action);
 
-		return action;
+		if(action!=null) {
+			actions.add(action);
+		}
+		
+		return actions;
 	}
 
 }

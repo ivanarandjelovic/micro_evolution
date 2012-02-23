@@ -19,6 +19,8 @@ public class World1DRun {
 	public static void main(String[] args) {
 
 		log.info("Starting run...");
+		
+		long startTime = System.currentTimeMillis();
 
 		World world = new World1D();
 		world.setFoodFactory(new ConstantFoodFactory());
@@ -36,6 +38,10 @@ public class World1DRun {
 		log.info("\n" + me.getReport());
 
 		log.info("Run complete.");
+		
+		long endTime = System.currentTimeMillis();
+		
+		log.info("Run took: "+(endTime-startTime)/1000.0 +" seconds");
 	}
 
 }
