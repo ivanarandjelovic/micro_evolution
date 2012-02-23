@@ -76,7 +76,7 @@ public abstract class World implements Tickable {
             // TODO: implement move:
             log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
           } else {
-
+            throw new RuntimeException("Unknown action type!?: " + action);
           }
         }
       }
