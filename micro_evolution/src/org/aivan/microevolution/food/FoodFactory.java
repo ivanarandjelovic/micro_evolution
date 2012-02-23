@@ -5,27 +5,27 @@ import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
 public abstract class FoodFactory implements Tickable {
-	
-	private static long foodCounter = 0;
 
-	static final Logger log = Logger.getLogger(FoodFactory.class);
+  private static long foodCounter = 0;
 
-	World world = null;
+  static final Logger log = Logger.getLogger(FoodFactory.class);
 
-	public FoodFactory() {
-		super();
-		log.trace("Created");
-	}
+  World world = null;
 
-	public abstract void init();
+  public FoodFactory() {
+    super();
+    log.trace("Created");
+  }
 
-	public void setWorld(World world) {
-		log.trace("world is set");
-		this.world = world;
-	}
-	
-	synchronized protected long getNextFoodCounter() {
-		return foodCounter++;
-	}
+  public abstract void init();
+
+  public void setWorld(World world) {
+    log.trace("world is set");
+    this.world = world;
+  }
+
+  synchronized protected long getNextFoodCounter() {
+    return foodCounter++;
+  }
 
 }

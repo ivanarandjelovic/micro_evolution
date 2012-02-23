@@ -9,39 +9,39 @@ import org.apache.log4j.Logger;
 
 public class World1DRun {
 
-	static final Logger log = Logger.getLogger(World1DRun.class);
+  static final Logger log = Logger.getLogger(World1DRun.class);
 
-	private static final long TICKS_TO_RUN_REPORT = 10;
+  private static final long TICKS_TO_RUN_REPORT = 10;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+  /**
+   * @param args
+   */
+  public static void main(String[] args) {
 
-		log.info("Starting run...");
-		
-		long startTime = System.currentTimeMillis();
+    log.info("Starting run...");
 
-		World world = new World1D();
-		world.setFoodFactory(new ConstantFoodFactory());
-		world.setLifeFormFactory(new SimpleLifeFormFactory());
-		ME me = new ME(world);
+    long startTime = System.currentTimeMillis();
 
-		log.info("Report at START: ");
-		log.info("================ ");
-		log.info("\n" + me.getReport());
+    World world = new World1D();
+    world.setFoodFactory(new ConstantFoodFactory());
+    world.setLifeFormFactory(new SimpleLifeFormFactory());
+    ME me = new ME(world);
 
-		me.runWorld(TICKS_TO_RUN_REPORT);
+    log.info("Report at START: ");
+    log.info("================ ");
+    log.info("\n" + me.getReport());
 
-		log.info("Report at END: ");
-		log.info("================ ");
-		log.info("\n" + me.getReport());
+    me.runWorld(TICKS_TO_RUN_REPORT);
 
-		log.info("Run complete.");
-		
-		long endTime = System.currentTimeMillis();
-		
-		log.info("Run took: "+(endTime-startTime)/1000.0 +" seconds");
-	}
+    log.info("Report at END: ");
+    log.info("================ ");
+    log.info("\n" + me.getReport());
+
+    log.info("Run complete.");
+
+    long endTime = System.currentTimeMillis();
+
+    log.info("Run took: " + (endTime - startTime) / 1000.0 + " seconds");
+  }
 
 }

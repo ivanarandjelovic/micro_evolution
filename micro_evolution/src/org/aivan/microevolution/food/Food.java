@@ -3,26 +3,25 @@ package org.aivan.microevolution.food;
 import org.apache.log4j.Logger;
 
 /**
- * Base food class. 
+ * Base food class.
+ * 
  * @author aivan
- *
+ * 
  */
 public class Food {
-	
-	static final Logger log = Logger.getLogger(Food.class);
 
-	private long id;
+  static final Logger log = Logger.getLogger(Food.class);
 
-	public Food(long id) {
-		super();
-		this.id = id;
-	}
+  private long id;
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName()+"/"+id;
-	}
-	
-	
+  public Food(long id) {
+    super();
+    this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName() + "/" + id;
+  }
 
 }

@@ -17,61 +17,61 @@ import org.apache.log4j.Logger;
  */
 public abstract class Point {
 
-	static final Logger log = Logger.getLogger(Point.class);
+  static final Logger log = Logger.getLogger(Point.class);
 
-	World world = null;
+  World world = null;
 
-	Set<LifeForm> lifeForms = new HashSet<LifeForm>();;
+  Set<LifeForm> lifeForms = new HashSet<LifeForm>();;
 
-	Food food = null;
+  Food food = null;
 
-	Point(World world) {
-		super();
-		this.world = world;
-	}
+  Point(World world) {
+    super();
+    this.world = world;
+  }
 
-	public void lifeFormEntered(LifeForm lifeForm) {
-		log.trace("Life form entetered: " + lifeForm);
-		lifeForms.add(lifeForm);
-	}
+  public void lifeFormEntered(LifeForm lifeForm) {
+    log.trace("Life form entetered: " + lifeForm);
+    lifeForms.add(lifeForm);
+  }
 
-	public void lifeFormLeft(LifeForm lifeForm) {
-		log.trace("Life form left: " + lifeForm);
-		lifeForms.remove(lifeForm);
-	}
+  public void lifeFormLeft(LifeForm lifeForm) {
+    log.trace("Life form left: " + lifeForm);
+    lifeForms.remove(lifeForm);
+  }
 
-	public Food getFood() {
-		return food;
-	}
-	
-	public Set<LifeForm> getLifeForms() {
-		return lifeForms;
-	}
+  public Food getFood() {
+    return food;
+  }
 
-	public void addFood(Food food) {
-		
-		log.trace("Food added" + food);
-		
-		if (this.food == null) {
-			this.food = food;
-			world.getFood().add(food);
-		} else {
-			throw new RuntimeException("Food already exists on this point!");
-		}
-	}
+  public Set<LifeForm> getLifeForms() {
+    return lifeForms;
+  }
 
-	public Food removeFood() {
-		Food eatenFood = this.food;
-		
-		log.trace("Food removed" + eatenFood);
-		
-		if (this.food != null) {
-			world.getFood().remove(this.food);
-			this.food = null;
-		} else {
-			throw new RuntimeException("Food does not exists here!");
-		}
-		return eatenFood;
-	}
+  public void addFood(Food food) {
+
+    log.trace("Food added" + food);
+
+    if (this.food == null) {
+      this.food = food;
+      world.getFood().add(food);
+    } else {
+      throw new RuntimeException("Food already exists on this point!");
+    }
+  }
+
+  public Food removeFood() {
+    Food eatenFood = this.food;
+
+    log.trace("Food removed" + eatenFood);
+
+    if (this.food != null) {
+      world.getFood().remove(this.food);
+      this.food = null;
+    } else {
+      throw new RuntimeException("Food does not exists here!");
+    }
+    return eatenFood;
+  }
 
 }

@@ -8,8 +8,8 @@ import org.apache.log4j.Logger;
 
 public abstract class Brain implements Tickable {
 
-	static final Logger log = Logger.getLogger(Brain.class);
+  static final Logger log = Logger.getLogger(Brain.class);
 
-	public abstract List<Action> getActions();
-	
+  public abstract List<Action> getActions();
+
 }

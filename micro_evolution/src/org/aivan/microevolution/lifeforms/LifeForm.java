@@ -9,25 +9,24 @@ import org.apache.log4j.Logger;
 
 public abstract class LifeForm implements Tickable {
 
-	static final Logger log = Logger.getLogger(LifeForm.class);
+  static final Logger log = Logger.getLogger(LifeForm.class);
 
-	protected Brain brain = null;
-	
-	public abstract List<Action> getActions();
+  protected Brain brain = null;
 
-	private long id;
+  public abstract List<Action> getActions();
 
-	public LifeForm(long id, Brain brain) {
-		super();
-		this.brain = brain;
-		this.id = id;
-	}
+  private long id;
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return this.getClass().getSimpleName()+"/"+id;
-	}
-	
-	
+  public LifeForm(long id, Brain brain) {
+    super();
+    this.brain = brain;
+    this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    // TODO Auto-generated method stub
+    return this.getClass().getSimpleName() + "/" + id;
+  }
+
 }

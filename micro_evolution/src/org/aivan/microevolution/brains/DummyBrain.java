@@ -12,46 +12,46 @@ import org.apache.log4j.Logger;
  * Not really smart brain, should behave predictable, mostly intended for
  * testing.
  * 
- * 33% eating, 33% moving, 33% doing nothing 
+ * 33% eating, 33% moving, 33% doing nothing
  * 
  * @author iarandjelovic
  * 
  */
 public class DummyBrain extends Brain {
 
-	static final Logger log = Logger.getLogger(DummyBrain.class);
+  static final Logger log = Logger.getLogger(DummyBrain.class);
 
-	private long tickCounter = 0;
+  private long tickCounter = 0;
 
-	@Override
-	public void tick() {
-		tickCounter++;
-		log.trace("tick ... (counter: "+tickCounter+")");
-	}
+  @Override
+  public void tick() {
+    tickCounter++;
+    log.trace("tick ... (counter: " + tickCounter + ")");
+  }
 
-	@Override
-	public List<Action> getActions() {
-		ArrayList<Action> actions = new ArrayList<Action>();
-		
-		Action action = null;
+  @Override
+  public List<Action> getActions() {
+    ArrayList<Action> actions = new ArrayList<Action>();
 
-		int rand = (int) Math.floor(Math.random() * 3);
+    Action action = null;
 
-		if (rand % 3 == 0) {
-			action = new MoveAction();
-		} else if (rand % 3 == 1) {
-			action = new EatAction();
-		} else {
-			action = null;
-		}
+    int rand = (int) Math.floor(Math.random() * 3);
 
-		log.trace("returning: " + action);
+    if (rand % 3 == 0) {
+      action = new MoveAction();
+    } else if (rand % 3 == 1) {
+      action = new EatAction();
+    } else {
+      action = null;
+    }
 
-		if(action!=null) {
-			actions.add(action);
-		}
-		
-		return actions;
-	}
+    log.trace("returning: " + action);
+
+    if (action != null) {
+      actions.add(action);
+    }
+
+    return actions;
+  }
 
 }

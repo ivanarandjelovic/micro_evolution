@@ -11,37 +11,37 @@ import org.apache.log4j.Logger;
  */
 public class ME {
 
-	static final Logger log = Logger.getLogger(ME.class);
+  static final Logger log = Logger.getLogger(ME.class);
 
-	World world = null;
+  World world = null;
 
-	public ME(World world) {
-		super();
-		log.debug("MicroEvolution created, world: " + world);
-		this.world = world;
-		log.debug("Initializing world ...");
-		world.init();
-	}
+  public ME(World world) {
+    super();
+    log.debug("MicroEvolution created, world: " + world);
+    this.world = world;
+    log.debug("Initializing world ...");
+    world.init();
+  }
 
-	public void runWorld(long ticks) {
-		log.debug("Ticking world for: " + ticks + " ticks ...");
-		for (long i = 0; i < ticks; i++) {
-			log.debug("Tick: " + i + " ticking ...");
-			world.tick();
-		}
-	}
+  public void runWorld(long ticks) {
+    log.debug("Ticking world for: " + ticks + " ticks ...");
+    for (long i = 0; i < ticks; i++) {
+      log.debug("Tick: " + i + " ticking ...");
+      world.tick();
+    }
+  }
 
-	public String getReport() {
-		String report = "";
-		
-		report += "World : " + world.getClass().getName();
-		report += "\nWorld's tick count: "+world.getTickCounter();
-		report += "\nWorld's lifeForm count: "+world.getLifeForms().size();
-		report += "\nWorld's food count: "+world.getFood().size();
-		report += "\nWorld's lifeForm placement:"+world.getLifeFormReport();
-		report += "\nWorld's food placement:"+world.getFoodReport();
-		report += "\nWorld's life forms and food placement:"+world.getLifeFormAndFoodReport();
-		
-		return  report;
-	}
+  public String getReport() {
+    String report = "";
+
+    report += "World : " + world.getClass().getName();
+    report += "\nWorld's tick count: " + world.getTickCounter();
+    report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
+    report += "\nWorld's food count: " + world.getFood().size();
+    report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
+    report += "\nWorld's food placement:" + world.getFoodReport();
+    report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodReport();
+
+    return report;
+  }
 }

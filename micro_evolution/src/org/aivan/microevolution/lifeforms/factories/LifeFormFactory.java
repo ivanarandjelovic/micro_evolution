@@ -4,22 +4,21 @@ import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
 public abstract class LifeFormFactory {
-	
-	static final Logger log = Logger.getLogger(LifeFormFactory.class);
 
-	private static long lifeFormCounter = 0;
+  static final Logger log = Logger.getLogger(LifeFormFactory.class);
 
-	World world = null;
+  private static long lifeFormCounter = 0;
 
-	public void setWorld(World world) {
-		log.trace("World set: "+world);
-		this.world = world;
-	}
+  World world = null;
 
-	public abstract void init();
-	
-	
-	synchronized protected long getNextLifeFormCounter() {
-		return lifeFormCounter++;
-	}
+  public void setWorld(World world) {
+    log.trace("World set: " + world);
+    this.world = world;
+  }
+
+  public abstract void init();
+
+  synchronized protected long getNextLifeFormCounter() {
+    return lifeFormCounter++;
+  }
 }
