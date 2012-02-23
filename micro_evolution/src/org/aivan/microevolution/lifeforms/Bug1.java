@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 
 public class Bug1 extends LifeForm {
 
-	static final Logger log = Logger.getLogger(Bug1.class);
-
-	public Bug1(Brain brain) {
-		this.brain = brain;
+	public Bug1(long id, Brain brain) {
+		super(id, brain);
 	}
+
+	static final Logger log = Logger.getLogger(Bug1.class);
 
 	@Override
 	public void tick() {

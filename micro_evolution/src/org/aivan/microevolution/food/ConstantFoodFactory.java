@@ -60,7 +60,7 @@ public class ConstantFoodFactory extends FoodFactory {
 	}
 
 	private void generateOneFood(List<Point> points, long pointCount) {
-		Food food = new Food();
+		Food food = new Food(getNextFoodCounter());
 		int rand = (int) Math.floor(Math.random() * pointCount);
 		Point point = points.get(rand);
 		if (point.getFood() == null) {

@@ -7,6 +7,8 @@ public abstract class LifeFormFactory {
 	
 	static final Logger log = Logger.getLogger(LifeFormFactory.class);
 
+	private static long lifeFormCounter = 0;
+
 	World world = null;
 
 	public void setWorld(World world) {
@@ -15,4 +17,9 @@ public abstract class LifeFormFactory {
 	}
 
 	public abstract void init();
+	
+	
+	synchronized protected long getNextLifeFormCounter() {
+		return lifeFormCounter++;
+	}
 }

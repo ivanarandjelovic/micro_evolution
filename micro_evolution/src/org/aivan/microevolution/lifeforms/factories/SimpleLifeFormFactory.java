@@ -28,7 +28,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
 				.size()) {
 			int rand = (int) Math.floor(Math.random() * points.size());
 			Point point = points.get(rand);
-			LifeForm lifeForm = new Bug1(new DummyBrain());
+			LifeForm lifeForm = new Bug1(getNextLifeFormCounter(), new DummyBrain());
 			point.lifeFormEntered(lifeForm);
 			world.getLifeForms().add(lifeForm);
 			formCount++;

@@ -15,4 +15,19 @@ public abstract class LifeForm implements Tickable {
 	
 	public abstract List<Action> getActions();
 
+	private long id;
+
+	public LifeForm(long id, Brain brain) {
+		super();
+		this.brain = brain;
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getClass().getSimpleName()+"/"+id;
+	}
+	
+	
 }
