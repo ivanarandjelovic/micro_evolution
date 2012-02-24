@@ -1,0 +1,10 @@
+World: 
+
+- implement action processing
+- Implement life form properties (food, energy, etc.)
+
+Long term:
+
+- Implement GUI (visualize worlds)
+- Implement load/save of worlds and evolved life forms
+- re-factor  
