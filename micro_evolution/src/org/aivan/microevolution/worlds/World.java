@@ -99,17 +99,7 @@ long lastTime = startTime;
       tpe.execute(ft);
       
     }
-    for (FutureTask<String> future : futureTasks) {
-      String tmp;
-      try {
-        tmp = future.get();
-      } catch (Exception e) {
-        // TODO Auto-generated catch block
-        log.error("Error",e);
-        throw new RuntimeException("Predator ticking failed!");
-      }
-      System.out.println("tmp="+tmp);
-    }
+    waitForFutureTasks(futureTasks);
 
     lastTime = reportTime(lastTime,"predator tick");
 
@@ -132,52 +122,26 @@ long lastTime = startTime;
       FutureTask<String> ft = new FutureTask<String>(lifeFormTickerRunnable, ""+i);
       tpe.execute(ft);
     }
-    for (FutureTask<String> future : futureTasks) {
-      String tmp;
-      try {
-        tmp = future.get();
-      } catch (Exception e) {
-        // TODO Auto-generated catch block
-        log.error("Exception", e);
-        throw new RuntimeException("Life form ticking failed!");
-      }
-      System.out.println("tmp="+tmp);
-    }
+    waitForFutureTasks(futureTasks);
     
     lastTime = reportTime(lastTime,"life form tick");
     
     log.trace("Processing lifeform actions ...");
 
-    for (Point point : points) {
-      log.trace("processing point: " + point);
-      // We need a copy of a set due to concurrent updated while iterating
-      Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
-      for (LifeForm lifeForm : lifeFormsCopy) {
-        List<Action> actions = lifeForm.getActions();
-        if (actions.isEmpty()) {
-          log.trace("lifeform: " + lifeForm + " no actions.");
-        } else {
-          for (Action action : actions) {
-            if (action instanceof EatAction) {
-              EatAction eatAction = (EatAction) action;
-              log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
-              if (point.getFood() != null) {
-                lifeForm.eat(point.getFood());
-                point.setFood(null);
-              }
-            } else if (action instanceof MoveAction) {
-              MoveAction moveAction = (MoveAction) action;
-              log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
-              point.lifeFormLeft(lifeForm);
-              point.getNext().lifeFormEntered(lifeForm);
-              lifeForm.moved();
-            } else {
-              throw new RuntimeException("Unknown action type!?: " + action);
-            }
-          }
-        }
+    int pointCount = points.size();
+    segmentSize = pointCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = pointCount;
       }
+      PointProcessorRunnable pointProcessorRunnable = new PointProcessorRunnable(segmentStart, segmentEnd, points);
+      FutureTask<String> ft = new FutureTask<String>(pointProcessorRunnable, ""+i);
+      tpe.execute(ft);
     }
+    waitForFutureTasks(futureTasks);
 
     lastTime = reportTime(lastTime,"actions processing");
     
@@ -238,6 +202,17 @@ long lastTime = startTime;
     }
     lastTime = reportTime(lastTime,"dead life forms check");
 
+  }
+
+  private void waitForFutureTasks(List<FutureTask<String>> futureTasks) {
+    for (FutureTask<String> future : futureTasks) {
+      try {
+        future.get();
+      } catch (Exception e) {
+        log.error("Error",e);
+        throw new RuntimeException("Predator ticking failed!");
+      }
+    }
   }
 
   private long reportTime(long startTime, String string) {

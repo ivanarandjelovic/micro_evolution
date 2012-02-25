@@ -1,20 +1,15 @@
 package org.aivan.microevolution.worlds;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.aivan.microevolution.lifeforms.predators.Predator;
 
-public class PredatorTickerRunnable implements Runnable {
+public class PredatorTickerRunnable extends SegmentRunnable {
 
-  int segmentStart;
-  int segmentEnd;
   List<Predator> predators;
 
   public PredatorTickerRunnable(int segmentStart, int segmentEnd, List<Predator> predators) {
-    super();
-    this.segmentStart = segmentStart;
-    this.segmentEnd = segmentEnd;
+    super(segmentStart,segmentEnd);
     this.predators = predators;
   }
 
