@@ -11,13 +11,13 @@ import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
-public class PointProcessorRunnable extends SegmentRunnable {
+public class ActionProcessorRunnable extends SegmentRunnable {
 
-  static final Logger log = Logger.getLogger(PointProcessorRunnable.class);
+  static final Logger log = Logger.getLogger(ActionProcessorRunnable.class);
 
   List<Point> points;
 
-  public PointProcessorRunnable(int segmentStart, int segmentEnd, List<Point> points) {
+  public ActionProcessorRunnable(int segmentStart, int segmentEnd, List<Point> points) {
     super(segmentStart, segmentEnd);
     this.points = points;
   }

@@ -5,15 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.aivan.microevolution.brains.actions.Action;
-import org.aivan.microevolution.brains.actions.EatAction;
-import org.aivan.microevolution.brains.actions.MoveAction;
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.food.FoodFactory;
 import org.aivan.microevolution.general.Tickable;
@@ -97,6 +92,7 @@ long lastTime = startTime;
       PredatorTickerRunnable predatorTickerRunnable = new PredatorTickerRunnable(segmentStart, segmentEnd, predators);
       FutureTask<String> ft = new FutureTask<String>(predatorTickerRunnable, ""+i);
       tpe.execute(ft);
+      futureTasks.add(ft);
       
     }
     waitForFutureTasks(futureTasks);
@@ -121,6 +117,7 @@ long lastTime = startTime;
       LifeFormTickerRunnable lifeFormTickerRunnable = new LifeFormTickerRunnable(segmentStart, segmentEnd, lifeForms);
       FutureTask<String> ft = new FutureTask<String>(lifeFormTickerRunnable, ""+i);
       tpe.execute(ft);
+      futureTasks.add(ft);
     }
     waitForFutureTasks(futureTasks);
     
@@ -137,10 +134,12 @@ long lastTime = startTime;
       if (i == (threadCount - 1)) {
         segmentEnd = pointCount;
       }
-      PointProcessorRunnable pointProcessorRunnable = new PointProcessorRunnable(segmentStart, segmentEnd, points);
+      ActionProcessorRunnable pointProcessorRunnable = new ActionProcessorRunnable(segmentStart, segmentEnd, points);
       FutureTask<String> ft = new FutureTask<String>(pointProcessorRunnable, ""+i);
       tpe.execute(ft);
+      futureTasks.add(ft);
     }
+    lastTime = reportTime(lastTime,"actions queuing");
     waitForFutureTasks(futureTasks);
 
     lastTime = reportTime(lastTime,"actions processing");
@@ -202,12 +201,14 @@ long lastTime = startTime;
     }
     lastTime = reportTime(lastTime,"dead life forms check");
 
+    lastTime = reportTime(startTime,"tick time");
   }
 
   private void waitForFutureTasks(List<FutureTask<String>> futureTasks) {
     for (FutureTask<String> future : futureTasks) {
       try {
-        future.get();
+        String result = future.get();
+        log.trace("FutureTask complted with result: "+result);
       } catch (Exception e) {
         log.error("Error",e);
         throw new RuntimeException("Predator ticking failed!");
