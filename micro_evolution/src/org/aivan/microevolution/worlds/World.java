@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.brains.actions.EatAction;
@@ -31,6 +36,9 @@ public abstract class World implements Tickable {
   List<Point> points = null;
   PredatorFactory predatorFactory = null;
   List<Predator> predators = new ArrayList<Predator>();
+
+  // helper stuff
+  int threadCount = 4;
 
   public void setPredatorFactory(PredatorFactory predatorFactory) {
     this.predatorFactory = predatorFactory;
@@ -61,9 +69,12 @@ public abstract class World implements Tickable {
 
   @Override
   public void tick() {
+long startTime = System.currentTimeMillis();
+long lastTime = startTime;
 
-    //ThreadPoolExecutor tpe = new ThreadPoolExecutor(2, 2, )
-    
+    ThreadPoolExecutor tpe = new ThreadPoolExecutor(threadCount, threadCount, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(
+        threadCount));
+
     tickCounter++;
 
     log.trace("tick, new tickCounter: " + tickCounter);
@@ -71,19 +82,70 @@ public abstract class World implements Tickable {
     log.trace("ticking foodFactory ...");
     foodFactory.tick();
 
+    lastTime = reportTime(lastTime,"foodFactory tick");
+    
     log.trace("ticking predators ...");
-    for (Predator predator : predators) {
-      predator.tick();
+    int predatorCount = predators.size();
+    int segmentSize = predatorCount / threadCount;
+    List<FutureTask<String>> futureTasks = new ArrayList<FutureTask<String>>();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = predatorCount;
+      }
+      PredatorTickerRunnable predatorTickerRunnable = new PredatorTickerRunnable(segmentStart, segmentEnd, predators);
+      FutureTask<String> ft = new FutureTask<String>(predatorTickerRunnable, ""+i);
+      tpe.execute(ft);
+      
     }
+    for (FutureTask<String> future : futureTasks) {
+      String tmp;
+      try {
+        tmp = future.get();
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        log.error("Error",e);
+        throw new RuntimeException("Predator ticking failed!");
+      }
+      System.out.println("tmp="+tmp);
+    }
+
+    lastTime = reportTime(lastTime,"predator tick");
 
     log.trace("ticking predatorFactory ...");
     predatorFactory.tick();
 
-    log.trace("ticking life forms ...");
-    for (LifeForm lifeForm : lifeForms) {
-      lifeForm.tick();
-    }
+    lastTime = reportTime(lastTime,"predatorFactory tick");
 
+    log.trace("ticking life forms ...");
+    int lifeFormCount = lifeForms.size();
+    segmentSize = lifeFormCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = lifeFormCount;
+      }
+      LifeFormTickerRunnable lifeFormTickerRunnable = new LifeFormTickerRunnable(segmentStart, segmentEnd, lifeForms);
+      FutureTask<String> ft = new FutureTask<String>(lifeFormTickerRunnable, ""+i);
+      tpe.execute(ft);
+    }
+    for (FutureTask<String> future : futureTasks) {
+      String tmp;
+      try {
+        tmp = future.get();
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        log.error("Exception", e);
+        throw new RuntimeException("Life form ticking failed!");
+      }
+      System.out.println("tmp="+tmp);
+    }
+    
+    lastTime = reportTime(lastTime,"life form tick");
+    
     log.trace("Processing lifeform actions ...");
 
     for (Point point : points) {
@@ -117,6 +179,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime,"actions processing");
+    
     log.trace("checking for dead life forms...");
 
     for (Point point : points) {
@@ -131,6 +195,8 @@ public abstract class World implements Tickable {
         }
       }
     }
+
+    lastTime = reportTime(lastTime,"dead life forms check");
 
     log.trace("checking for dead predators...");
 
@@ -142,6 +208,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime,"dead predators check");
+
     log.trace("processing predators...");
 
     for (Point point : points) {
@@ -152,6 +220,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime,"predator processing");
+    
     log.trace("checking for dead life forms...");
 
     for (Point point : points) {
@@ -166,6 +236,16 @@ public abstract class World implements Tickable {
         }
       }
     }
+    lastTime = reportTime(lastTime,"dead life forms check");
+
+  }
+
+  private long reportTime(long startTime, String string) {
+    long currentTime = System.currentTimeMillis();
+    
+    log.info(string+": "+(currentTime-startTime)+" ms");
+    
+    return currentTime;
   }
 
   public List<Point> getPoints() {
@@ -288,7 +368,7 @@ public abstract class World implements Tickable {
         result += "p";
       }
       result += "]";
-      
+
       count++;
     }
 

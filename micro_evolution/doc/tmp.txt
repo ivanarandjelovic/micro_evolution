@@ -1,0 +1,3 @@
+no paralel: 19.657 seconds
+
+paralel ticking for predators and lifeforms 19.476 seconds
