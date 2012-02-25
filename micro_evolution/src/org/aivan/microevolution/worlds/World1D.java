@@ -10,7 +10,14 @@ public class World1D extends World {
 
   static final Logger log = Logger.getLogger(World1D.class);
 
-  private static final long POINT_COUNT = 10000;
+  private long pointCount;
+
+  public World1D(long pointCount) {
+    super();
+    this.pointCount = pointCount;
+  }
+
+
 
   @Override
   public void init() {
@@ -19,7 +26,7 @@ public class World1D extends World {
     log.debug("Creating points ...");
     points = new ArrayList<Point>();
     Point previousPoint = null;
-    for (long i = 0; i < POINT_COUNT; i++) {
+    for (long i = 0; i < pointCount; i++) {
       Point point = new SimplePoint(i, this, previousPoint);
       points.add(point);
       previousPoint = point;
@@ -34,6 +41,9 @@ public class World1D extends World {
     // Create lifeForms:
     lifeFormFactory.init();
 
+    log.debug("Creating predators ...");
+    predatorFactory.init();
+    
   }
 
 }

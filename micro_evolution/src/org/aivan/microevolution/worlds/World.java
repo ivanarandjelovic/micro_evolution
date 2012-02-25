@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.brains.actions.EatAction;
@@ -13,6 +14,8 @@ import org.aivan.microevolution.food.FoodFactory;
 import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
+import org.aivan.microevolution.lifeforms.predators.Predator;
+import org.aivan.microevolution.lifeforms.predators.PredatorFactory;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
@@ -26,6 +29,12 @@ public abstract class World implements Tickable {
   protected FoodFactory foodFactory = null;
   List<Food> food = new ArrayList<Food>();
   List<Point> points = null;
+  PredatorFactory predatorFactory = null;
+  List<Predator> predators = new ArrayList<Predator>();
+
+  public void setPredatorFactory(PredatorFactory predatorFactory) {
+    this.predatorFactory = predatorFactory;
+  }
 
   // Statistics data:
   protected List<LifeForm> deadLifeForms = new ArrayList<LifeForm>();
@@ -53,12 +62,22 @@ public abstract class World implements Tickable {
   @Override
   public void tick() {
 
+    //ThreadPoolExecutor tpe = new ThreadPoolExecutor(2, 2, )
+    
     tickCounter++;
 
     log.trace("tick, new tickCounter: " + tickCounter);
 
     log.trace("ticking foodFactory ...");
     foodFactory.tick();
+
+    log.trace("ticking predators ...");
+    for (Predator predator : predators) {
+      predator.tick();
+    }
+
+    log.trace("ticking predatorFactory ...");
+    predatorFactory.tick();
 
     log.trace("ticking life forms ...");
     for (LifeForm lifeForm : lifeForms) {
@@ -95,6 +114,41 @@ public abstract class World implements Tickable {
             }
           }
         }
+      }
+    }
+
+    log.trace("checking for dead life forms...");
+
+    for (Point point : points) {
+      log.trace("processing point: " + point);
+      // We need a copy of a set due to concurrent updated while iterating
+      Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
+      for (LifeForm lifeForm : lifeFormsCopy) {
+        if (lifeForm.isDead()) {
+          point.lifeFormLeft(lifeForm);
+          lifeForms.remove(lifeForm);
+          deadLifeForms.add(lifeForm);
+        }
+      }
+    }
+
+    log.trace("checking for dead predators...");
+
+    for (Point point : points) {
+      log.trace("processing point: " + point);
+      Predator predator = point.getPredator();
+      if (predator != null && predator.isDead()) {
+        point.setPreadator(null);
+      }
+    }
+
+    log.trace("processing predators...");
+
+    for (Point point : points) {
+      log.trace("processing point: " + point);
+      if (point.getPredator() != null && point.getLifeForms().size() > 0) {
+        Predator predator = point.getPredator();
+        predator.meet(point.getLifeForms().get(0));
       }
     }
 
@@ -181,7 +235,27 @@ public abstract class World implements Tickable {
     return result;
   }
 
-  public String getLifeFormAndFoodReport() {
+  public String getPredatorReport() {
+    String result = "";
+    int count = 0;
+    for (Point point : points) {
+
+      if (count % 30 == 0) {
+        result += "\n";
+      }
+
+      if (point.getPredator() == null) {
+        result += " [] ";
+      } else {
+        result += " [p]";
+      }
+      count++;
+    }
+
+    return result;
+  }
+
+  public String getLifeFormAndFoodAndPredatorReport() {
     String result = "";
     int count = 0;
     for (Point point : points) {
@@ -206,7 +280,15 @@ public abstract class World implements Tickable {
         result += "f";
       }
 
+      result += "/";
+
+      if (point.getPredator() == null) {
+        result += " ";
+      } else {
+        result += "p";
+      }
       result += "]";
+      
       count++;
     }
 
@@ -215,6 +297,10 @@ public abstract class World implements Tickable {
 
   public List<LifeForm> getDeadLifeForms() {
     return deadLifeForms;
+  }
+
+  public List<Predator> getPredators() {
+    return predators;
   }
 
 }

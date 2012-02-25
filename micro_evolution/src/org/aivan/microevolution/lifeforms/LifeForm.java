@@ -75,4 +75,8 @@ public abstract class LifeForm implements Tickable {
     return powerLevel <= 0;
   }
 
+  public void kill() {
+    this.powerLevel = 0;
+  }
+
 }

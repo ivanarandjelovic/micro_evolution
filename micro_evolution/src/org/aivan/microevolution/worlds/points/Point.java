@@ -1,10 +1,11 @@
 package org.aivan.microevolution.worlds.points;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.lifeforms.LifeForm;
+import org.aivan.microevolution.lifeforms.predators.Predator;
 import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
@@ -23,9 +24,11 @@ public abstract class Point {
   long id;
   Point next = null;
 
-  Set<LifeForm> lifeForms = new HashSet<LifeForm>();;
+  List<LifeForm> lifeForms = new ArrayList<LifeForm>();;
 
   Food food = null;
+
+  Predator predator = null;
 
   Point(long id, World world, Point next) {
     super();
@@ -47,8 +50,12 @@ public abstract class Point {
   public Food getFood() {
     return food;
   }
+  
+  public Predator getPredator() {
+    return predator;
+  }
 
-  public Set<LifeForm> getLifeForms() {
+  public List<LifeForm> getLifeForms() {
     return lifeForms;
   }
 
@@ -79,6 +86,34 @@ public abstract class Point {
       throw new RuntimeException("Food does not exists here!");
     }
     return eatenFood;
+  }
+
+  public void setPreadator(Predator predator) {
+
+    log.trace("Predator added" + predator);
+
+    if (this.predator == null) {
+      world.getPredators().add(predator);
+      this.predator = predator;
+    } else if (predator == null) {
+      world.getPredators().remove(this.predator);
+      this.predator = predator;
+    } else {
+      throw new RuntimeException("Preadator already exists on this point or null predator set already!");
+    }
+  }
+
+  public Predator removePreadator() {
+    Predator predator = this.predator;
+    log.trace("Predator removed" + this.predator);
+
+    if (this.food != null) {
+      world.getPredators().remove(this.predator);
+      this.predator = null;
+    } else {
+      throw new RuntimeException("Predator does not exists here!");
+    }
+    return predator;
   }
 
   @Override

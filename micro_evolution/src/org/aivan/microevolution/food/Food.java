@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  */
 public class Food {
 
-  private static final int POWER_VALUE = 10;
+  private static final int POWER_VALUE = 20;
 
   static final Logger log = Logger.getLogger(Food.class);
 

@@ -34,7 +34,7 @@ public class ME {
       log.debug("Tick: " + i + " ticking ...");
       world.tick();
       if (i % generalReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
-        log.debug(getGeneralReport());
+        log.info(getGeneralReport());
       }
       
       if (world.getLifeForms().size() == 0) {
@@ -60,10 +60,12 @@ public class ME {
     String report = "";
 
     report += "World : " + world.getClass().getName();
+    report += "\nWorld point count: " + world.getPoints().size();
     report += getGeneralReport();
     report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
     report += "\nWorld's food placement:" + world.getFoodReport();
-    report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodReport();
+    report += "\nWorld's predator placement:" + world.getPredatorReport();
+    report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodAndPredatorReport();
     report += "\n:LifeForm details:";
     for (LifeForm lifeForm : world.getLifeForms()) {
       report += "\n" + lifeForm.getReport();
@@ -77,6 +79,7 @@ public class ME {
     report += "\nWorld's tick count: " + world.getTickCounter();
     report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
     report += "\nWorld's food count: " + world.getFood().size();
+    report += "\nWorld's predator count: " + world.getPredators().size();
     report += "\nWorld's deadLifeForm count: " + world.getDeadLifeForms().size();
     return report;
   }
