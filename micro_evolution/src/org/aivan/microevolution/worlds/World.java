@@ -61,9 +61,8 @@ public abstract class World implements Tickable {
 
   @Override
   public void tick() {
+    long startTime = System.currentTimeMillis();
 
-    //ThreadPoolExecutor tpe = new ThreadPoolExecutor(2, 2, )
-    
     tickCounter++;
 
     log.trace("tick, new tickCounter: " + tickCounter);
@@ -166,6 +165,9 @@ public abstract class World implements Tickable {
         }
       }
     }
+    
+    long endTime = System.currentTimeMillis();
+    log.info("tick time: "+(endTime - startTime)+ " ms");
   }
 
   public List<Point> getPoints() {
@@ -288,7 +290,7 @@ public abstract class World implements Tickable {
         result += "p";
       }
       result += "]";
-      
+
       count++;
     }
 
