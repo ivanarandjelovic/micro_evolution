@@ -33,6 +33,7 @@ public class ME {
     for (long i = 0; i < ticks; i++) {
       log.debug("Tick: " + i + " ticking ...");
       world.tick();
+      log.debug(getGeneralReport());
       if (world.getLifeForms().size() == 0) {
         log.info("Stopping evolution, all life forms dead. Current tick count: " + i + " of " + ticks);
         break;
@@ -56,10 +57,7 @@ public class ME {
     String report = "";
 
     report += "World : " + world.getClass().getName();
-    report += "\nWorld's tick count: " + world.getTickCounter();
-    report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
-    report += "\nWorld's food count: " + world.getFood().size();
-    report += "\nWorld's deadLifeForm count: " + world.getDeadLifeForms().size();
+    report += getGeneralReport();
     report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
     report += "\nWorld's food placement:" + world.getFoodReport();
     report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodReport();
@@ -68,6 +66,15 @@ public class ME {
       report += "\n" + lifeForm.getReport();
     }
 
+    return report;
+  }
+
+  private String getGeneralReport() {
+    String report = "";
+    report += "\nWorld's tick count: " + world.getTickCounter();
+    report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
+    report += "\nWorld's food count: " + world.getFood().size();
+    report += "\nWorld's deadLifeForm count: " + world.getDeadLifeForms().size();
     return report;
   }
 }

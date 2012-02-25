@@ -12,7 +12,7 @@ public class World1DRun {
   static final Logger log = Logger.getLogger(World1DRun.class);
 
   private static final long TICKS_TO_RUN_REPORT = 1000;
-  private static final long REPORT_ON_TICKS = 100;
+  private static final long REPORT_ON_TICKS = 1000;
 
   /**
    * @param args
