@@ -13,6 +13,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
   static final Logger log = Logger.getLogger(SimpleLifeFormFactory.class);
 
   public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 10.0;
+  public static final long INITIAL_POWER_LEVEL = 20;
 
   private int formCount = 0;
 
@@ -27,7 +28,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
     while (points.size() / 100.0 * LIFE_FORM_PERCENTAGE_IN_POINTS > lifeForms.size()) {
       int rand = (int) Math.floor(Math.random() * points.size());
       Point point = points.get(rand);
-      LifeForm lifeForm = new Bug1(getNextLifeFormCounter(), new DummyBrain());
+      LifeForm lifeForm = new Bug1(getNextLifeFormCounter(), new DummyBrain(), INITIAL_POWER_LEVEL);
       point.lifeFormEntered(lifeForm);
       world.getLifeForms().add(lifeForm);
       formCount++;

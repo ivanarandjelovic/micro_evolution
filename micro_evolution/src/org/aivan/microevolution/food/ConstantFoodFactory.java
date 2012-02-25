@@ -11,7 +11,7 @@ public class ConstantFoodFactory extends FoodFactory {
 
   public static final double INITIAL_FOOD_COUNT_PERCENT = 5.0;
   public static final double FOOD_PER_POINT_PER_TICK = 0.05;
-  public static final double MAX_POINT_WITH_FOOD_PERCENT = 25;
+  public static final double MAX_POINT_WITH_FOOD_PERCENT = 85;
 
   private double currentFoodFactor = 0.0;
 
@@ -65,7 +65,7 @@ public class ConstantFoodFactory extends FoodFactory {
     Point point = points.get(rand);
     if (point.getFood() == null) {
       log.trace("Point has no food, adding it");
-      point.addFood(food);
+      point.setFood(food);
     } else {
       log.trace("Point has food already, skipping.");
     }

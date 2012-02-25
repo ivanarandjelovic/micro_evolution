@@ -12,10 +12,12 @@ import org.apache.log4j.Logger;
  */
 public class SimplePoint extends Point {
 
-  static final Logger log = Logger.getLogger(SimplePoint.class);
-
-  public SimplePoint(World world) {
-    super(world);
+  public SimplePoint(long id, World world, Point next) {
+    super(id, world, next);
   }
+
+
+
+  static final Logger log = Logger.getLogger(SimplePoint.class);
 
 }

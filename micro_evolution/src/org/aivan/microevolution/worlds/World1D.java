@@ -18,9 +18,13 @@ public class World1D extends World {
     // Create points
     log.debug("Creating points ...");
     points = new ArrayList<Point>();
+    Point previousPoint = null;
     for (long i = 0; i < POINT_COUNT; i++) {
-      points.add(new SimplePoint(this));
+      Point point = new SimplePoint(i, this, previousPoint);
+      points.add(point);
+      previousPoint = point;
     }
+    points.get(0).setNext(previousPoint);
 
     log.debug("Creating food ...");
     // Create food

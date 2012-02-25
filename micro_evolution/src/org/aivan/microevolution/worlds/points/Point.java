@@ -20,14 +20,18 @@ public abstract class Point {
   static final Logger log = Logger.getLogger(Point.class);
 
   World world = null;
+  long id;
+  Point next = null;
 
   Set<LifeForm> lifeForms = new HashSet<LifeForm>();;
 
   Food food = null;
 
-  Point(World world) {
+  Point(long id, World world, Point next) {
     super();
     this.world = world;
+    this.id = id;
+    this.next = next;
   }
 
   public void lifeFormEntered(LifeForm lifeForm) {
@@ -48,15 +52,18 @@ public abstract class Point {
     return lifeForms;
   }
 
-  public void addFood(Food food) {
+  public void setFood(Food food) {
 
     log.trace("Food added" + food);
 
     if (this.food == null) {
-      this.food = food;
       world.getFood().add(food);
+      this.food = food;
+    } else if (food == null) {
+      world.getFood().remove(this.food);
+      this.food = food;
     } else {
-      throw new RuntimeException("Food already exists on this point!");
+      throw new RuntimeException("Food already exists on this point or null food set already!");
     }
   }
 
@@ -74,4 +81,17 @@ public abstract class Point {
     return eatenFood;
   }
 
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName() + "/" + id;
+  }
+
+  public Point getNext() {
+    return next;
+  }
+
+  public void setNext(Point next) {
+    this.next = next;
+
+  }
 }

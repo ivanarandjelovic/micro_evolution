@@ -11,7 +11,8 @@ public class World1DRun {
 
   static final Logger log = Logger.getLogger(World1DRun.class);
 
-  private static final long TICKS_TO_RUN_REPORT = 10;
+  private static final long TICKS_TO_RUN_REPORT = 1000;
+  private static final long REPORT_ON_TICKS = 100;
 
   /**
    * @param args
@@ -27,15 +28,7 @@ public class World1DRun {
     world.setLifeFormFactory(new SimpleLifeFormFactory());
     ME me = new ME(world);
 
-    log.info("Report at START: ");
-    log.info("================ ");
-    log.info("\n" + me.getReport());
-
-    me.runWorld(TICKS_TO_RUN_REPORT);
-
-    log.info("Report at END: ");
-    log.info("================ ");
-    log.info("\n" + me.getReport());
+    me.runWorld(TICKS_TO_RUN_REPORT, REPORT_ON_TICKS);
 
     log.info("Run complete.");
 
