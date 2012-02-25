@@ -12,7 +12,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
 
   static final Logger log = Logger.getLogger(SimpleLifeFormFactory.class);
 
-  public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 10.0;
+  public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 5.0;
   public static final long INITIAL_POWER_LEVEL = 20;
 
   private int formCount = 0;

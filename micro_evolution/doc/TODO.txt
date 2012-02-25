@@ -1,7 +1,6 @@
 World: 
 
-- implement action processing
-- Implement life form properties (food, energy, etc.)
+- implement input
 
 Long term:
 

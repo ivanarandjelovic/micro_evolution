@@ -13,6 +13,8 @@ public class World1DRun {
 
   private static final long TICKS_TO_RUN_REPORT = 1000;
   private static final long REPORT_ON_TICKS = 1000;
+  private static final long GENERAL_REPORT_ON_TICKS = 10;
+  
 
   /**
    * @param args
@@ -28,7 +30,7 @@ public class World1DRun {
     world.setLifeFormFactory(new SimpleLifeFormFactory());
     ME me = new ME(world);
 
-    me.runWorld(TICKS_TO_RUN_REPORT, REPORT_ON_TICKS);
+    me.runWorld(TICKS_TO_RUN_REPORT, REPORT_ON_TICKS, GENERAL_REPORT_ON_TICKS);
 
     log.info("Run complete.");
 

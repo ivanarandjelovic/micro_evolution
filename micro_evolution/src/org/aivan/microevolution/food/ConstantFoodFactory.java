@@ -32,7 +32,7 @@ public class ConstantFoodFactory extends FoodFactory {
     if (currentFoodFactor >= 1.0) {
       log.trace("Creating new food(s) ...");
       while (currentFoodFactor >= 1.0) {
-        if (pointCount / 100.0 * world.getFood().size() < MAX_POINT_WITH_FOOD_PERCENT) {
+        if ( (pointCount / 100.0) * MAX_POINT_WITH_FOOD_PERCENT > world.getFood().size()) {
           log.trace("Creating new food.");
           generateOneFood(points, pointCount);
         } else {

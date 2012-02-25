@@ -10,7 +10,7 @@ public class World1D extends World {
 
   static final Logger log = Logger.getLogger(World1D.class);
 
-  private static final long POINT_COUNT = 1000;
+  private static final long POINT_COUNT = 10000;
 
   @Override
   public void init() {

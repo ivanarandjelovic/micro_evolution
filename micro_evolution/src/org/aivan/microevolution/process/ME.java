@@ -24,7 +24,7 @@ public class ME {
     world.init();
   }
 
-  public void runWorld(long ticks, long reportOnTicks) {
+  public void runWorld(long ticks, long reportOnTicks, long generalReportOnTicks) {
     log.info("Report at START: ");
     log.info("================ ");
     log.info("\n" + this.getReport());
@@ -33,7 +33,10 @@ public class ME {
     for (long i = 0; i < ticks; i++) {
       log.debug("Tick: " + i + " ticking ...");
       world.tick();
-      log.debug(getGeneralReport());
+      if (i % generalReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
+        log.debug(getGeneralReport());
+      }
+      
       if (world.getLifeForms().size() == 0) {
         log.info("Stopping evolution, all life forms dead. Current tick count: " + i + " of " + ticks);
         break;
