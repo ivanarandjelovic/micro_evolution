@@ -1,6 +1,6 @@
 Short term: 
 
-- implement input
+- implement reproduction
 - implement brain1 brain
 - implement 2D brain
 

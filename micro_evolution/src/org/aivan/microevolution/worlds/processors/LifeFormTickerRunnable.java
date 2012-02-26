@@ -24,6 +24,9 @@ public class LifeFormTickerRunnable extends SegmentProcessorRunnable {
       // Set inputs
 
       Point currentPoint = lifeForm.getLocatonPoint();
+      if(currentPoint==null) {
+        throw new RuntimeException("lifeForm has no point! " + lifeForm);
+      }
       double foodSignal = 0.0;
       double predatorSignal = 0.0;
       double lifeFormSignal = 0.0;

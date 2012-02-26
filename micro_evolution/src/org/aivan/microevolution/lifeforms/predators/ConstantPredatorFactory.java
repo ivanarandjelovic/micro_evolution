@@ -11,7 +11,7 @@ public class ConstantPredatorFactory extends PredatorFactory implements Tickable
 
   static final Logger log = Logger.getLogger(ConstantPredatorFactory.class);
 
-  public static final double PREDATOR_PER_POINT_PER_TICK = 0.001;
+  public static final double PREDATOR_PER_POINT_PER_TICK = 0.0005;
   private static final int PREDATOR_DURATION = 3;
 
   private double currentPredatorFactor = 0.0;

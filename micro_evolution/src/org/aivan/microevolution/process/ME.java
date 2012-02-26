@@ -59,18 +59,22 @@ public class ME {
     log.info("Life forms death reasons: ");
     long predatorDeath = 0;
     long hungerDeath = 0;
+    long ageDeath = 0;
     long unknownReason = 0;
     for(LifeForm lifeForm : world.getDeadLifeForms()) {
-      if(lifeForm.getDiedFrom() == 1) {
+      if(lifeForm.getDiedFrom() == LifeForm.DeathReason.PREDATOR) {
         predatorDeath++;
-      } else if (lifeForm.getDiedFrom() == 2){
+      } else if (lifeForm.getDiedFrom() == LifeForm.DeathReason.HUNGER){
         hungerDeath ++;
+      } else if (lifeForm.getDiedFrom() == LifeForm.DeathReason.AGE){
+        ageDeath ++;
       } else {
         unknownReason++;
       }
     }
     log.info("Died from predator: "+predatorDeath);
     log.info("Died from hunger  : "+hungerDeath);
+    log.info("Died from age     : "+ageDeath);
     log.info("Died from unknown : "+unknownReason);
     
     world.shutdown();

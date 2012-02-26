@@ -9,9 +9,9 @@ public class ConstantFoodFactory extends FoodFactory {
 
   static final Logger log = Logger.getLogger(ConstantFoodFactory.class);
 
-  public static final double INITIAL_FOOD_COUNT_PERCENT = 20.0;
+  public static final double INITIAL_FOOD_COUNT_PERCENT = 50.0;
   public static final double FOOD_PER_POINT_PER_TICK = 0.04;
-  public static final double MAX_POINT_WITH_FOOD_PERCENT = 90;
+  public static final double MAX_POINT_WITH_FOOD_PERCENT = INITIAL_FOOD_COUNT_PERCENT;
 
   private double currentFoodFactor = 0.0;
 

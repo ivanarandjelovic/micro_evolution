@@ -9,14 +9,18 @@ import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
-public abstract class LifeForm implements Tickable {
+public class LifeForm implements Tickable {
 
   static final Logger log = Logger.getLogger(LifeForm.class);
 
-  protected Brain brain = null;
+  public enum DeathReason {
+    PREDATOR, HUNGER, AGE
+  }
 
+  protected Brain brain = null;
+  private long maxAge = 0;
   private long id;
-  private int diedFrom = 0;
+  private DeathReason diedFrom = null;
 
   // Simple counters for statistics
   private long eatenFoodCount = 0;
@@ -24,15 +28,17 @@ public abstract class LifeForm implements Tickable {
 
   // Body state
   private long powerLevel = 0;
+  private long age = 0;
 
   // Helper stuff
   Point locatonPoint = null;
 
-  public LifeForm(long id, Brain brain, long initialPowerLevel) {
+  public LifeForm(long id, Brain brain, long initialPowerLevel, long maxAge) {
     super();
     this.id = id;
     this.brain = brain;
     this.powerLevel = initialPowerLevel;
+    this.maxAge = maxAge;
   }
 
   @Override
@@ -44,12 +50,14 @@ public abstract class LifeForm implements Tickable {
     // log.trace("moved");
     moveCount++;
     powerLevel--;
-    checkIfDiedFromHunger();
+    checkIfDied();
   }
 
-  private void checkIfDiedFromHunger() {
-    if (powerLevel == 0) {
-      diedFrom = 2;
+  private void checkIfDied() {
+    if (powerLevel <= 0) {
+      diedFrom = LifeForm.DeathReason.HUNGER;
+    } else if (age > maxAge) {
+      diedFrom = LifeForm.DeathReason.AGE;
     }
   }
 
@@ -72,19 +80,23 @@ public abstract class LifeForm implements Tickable {
 
   @Override
   public void tick() {
+    if (isDead()) {
+      throw new RuntimeException("ticking dead life form! " + this);
+    }
     // log.trace("tick...");
 
     // Provide hunger level
-    double hungerStrength = 0.01 * (100-powerLevel);
-    if(hungerStrength<0) {
+    double hungerStrength = 0.01 * (100 - powerLevel);
+    if (hungerStrength < 0) {
       hungerStrength = 0.0;
     }
     brain.hunger(hungerStrength);
-    
+
     // log.trace("ticking brain ...");
     brain.tick();
     powerLevel--;
-    checkIfDiedFromHunger();
+    age++;
+    checkIfDied();
   }
 
   public List<Action> getActions() {
@@ -92,15 +104,15 @@ public abstract class LifeForm implements Tickable {
   }
 
   public boolean isDead() {
-    return powerLevel <= 0;
+    return (diedFrom != null);
   }
 
   public void kill() {
     this.powerLevel = 0;
-    diedFrom = 1;
+    diedFrom = LifeForm.DeathReason.PREDATOR;
   }
 
-  public int getDiedFrom() {
+  public DeathReason getDiedFrom() {
     return diedFrom;
   }
 
@@ -110,6 +122,10 @@ public abstract class LifeForm implements Tickable {
 
   public void setLocatonPoint(Point locatonPoint) {
     this.locatonPoint = locatonPoint;
+  }
+
+  public long getAge() {
+    return age;
   }
 
   // INPUTS:

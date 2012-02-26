@@ -3,7 +3,6 @@ package org.aivan.microevolution.lifeforms.factories;
 import java.util.List;
 
 import org.aivan.microevolution.brains.DummyBrain;
-import org.aivan.microevolution.lifeforms.Bug1;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
@@ -14,6 +13,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
 
   public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 5.0;
   public static final long INITIAL_POWER_LEVEL = 50;
+  public static final long MAX_LIFEFORM_AGE = 2500;
 
   private int formCount = 0;
 
@@ -28,7 +28,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
     while (points.size() / 100.0 * LIFE_FORM_PERCENTAGE_IN_POINTS > lifeForms.size()) {
       int rand = (int) Math.floor(Math.random() * points.size());
       Point point = points.get(rand);
-      LifeForm lifeForm = new Bug1(getNextLifeFormCounter(), new DummyBrain(), INITIAL_POWER_LEVEL);
+      LifeForm lifeForm = new LifeForm(getNextLifeFormCounter(), new DummyBrain(), INITIAL_POWER_LEVEL, MAX_LIFEFORM_AGE);
       point.lifeFormEntered(lifeForm);
       world.getLifeForms().add(lifeForm);
       formCount++;

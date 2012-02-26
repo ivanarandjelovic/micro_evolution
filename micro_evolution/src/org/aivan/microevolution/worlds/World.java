@@ -30,7 +30,7 @@ public abstract class World implements Tickable {
 
   private long tickCounter = 0;
   protected LifeFormFactory lifeFormFactory = null;
-  protected List<LifeForm> lifeForms = new ArrayList<LifeForm>();
+  protected List<LifeForm> lifeForms = Collections. synchronizedList(new ArrayList<LifeForm>());
   protected FoodFactory foodFactory = null;
   List<Food> food = new ArrayList<Food>();
   List<Point> points = null;
@@ -47,7 +47,7 @@ public abstract class World implements Tickable {
   }
 
   // Statistics data:
-  protected List<LifeForm> deadLifeForms = new ArrayList<LifeForm>();
+  protected List<LifeForm> deadLifeForms = Collections. synchronizedList(new ArrayList<LifeForm>());
 
   public long getTickCounter() {
     return tickCounter;
@@ -124,6 +124,10 @@ long lastTime = startTime;
     waitForFutureTasks(futureTasks);
     lastTime = reportTime(lastTime,"life form tick");
     
+    //log.trace("checking for dead life forms...");
+
+    lastTime = deadLifeFormCheck(lastTime, futureTasks);
+
     //log.trace("Processing lifeform actions ...");
 
     int pointCount = points.size();

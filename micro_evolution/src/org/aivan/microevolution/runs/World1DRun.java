@@ -13,7 +13,7 @@ public class World1DRun {
   static final Logger log = Logger.getLogger(World1DRun.class);
 
   private static final long WORLD_POINT_COUNT = 10000;
-  private static final long TICKS_TO_RUN = 10000;
+  private static final long TICKS_TO_RUN = 50000;
   private static final long REPORT_ON_TICKS = 500;
   private static final long GENERAL_REPORT_ON_TICKS = 0;
   
