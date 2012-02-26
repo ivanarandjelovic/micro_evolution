@@ -62,6 +62,7 @@ public abstract class World implements Tickable {
   @Override
   public void tick() {
     long startTime = System.currentTimeMillis();
+long lastTime = startTime;
 
     tickCounter++;
 
@@ -70,18 +71,26 @@ public abstract class World implements Tickable {
     log.trace("ticking foodFactory ...");
     foodFactory.tick();
 
+    lastTime = reportTime(lastTime, "foodFactory.tick();");
+    
     log.trace("ticking predators ...");
     for (Predator predator : predators) {
       predator.tick();
     }
 
+    lastTime = reportTime(lastTime, "predator.tick();");
+
     log.trace("ticking predatorFactory ...");
     predatorFactory.tick();
+
+    lastTime = reportTime(lastTime, "predatorFactory.tick();");
 
     log.trace("ticking life forms ...");
     for (LifeForm lifeForm : lifeForms) {
       lifeForm.tick();
     }
+
+    lastTime = reportTime(lastTime, "lifeForm.tick();");
 
     log.trace("Processing lifeform actions ...");
 
@@ -116,6 +125,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime, "processing actions.");
+
     log.trace("checking for dead life forms...");
 
     for (Point point : points) {
@@ -131,6 +142,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime, "dead life forms");
+
     log.trace("checking for dead predators...");
 
     for (Point point : points) {
@@ -141,6 +154,8 @@ public abstract class World implements Tickable {
       }
     }
 
+    lastTime = reportTime(lastTime, "dead predators");
+
     log.trace("processing predators...");
 
     for (Point point : points) {
@@ -150,6 +165,8 @@ public abstract class World implements Tickable {
         predator.meet(point.getLifeForms().get(0));
       }
     }
+
+    lastTime = reportTime(lastTime, "processing predators");
 
     log.trace("checking for dead life forms...");
 
@@ -166,10 +183,20 @@ public abstract class World implements Tickable {
       }
     }
     
+    lastTime = reportTime(lastTime, "dead life forms");
+
     long endTime = System.currentTimeMillis();
     log.info("tick time: "+(endTime - startTime)+ " ms");
   }
 
+  private long reportTime(long startTime, String string) {
+    long currentTime = System.currentTimeMillis();
+    
+    log.debug(string+": "+(currentTime-startTime)+" ms");
+    
+    return currentTime;
+  }
+  
   public List<Point> getPoints() {
     return points;
   }
