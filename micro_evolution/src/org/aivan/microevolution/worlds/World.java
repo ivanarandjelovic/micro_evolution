@@ -17,6 +17,12 @@ import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
 import org.aivan.microevolution.lifeforms.predators.Predator;
 import org.aivan.microevolution.lifeforms.predators.PredatorFactory;
 import org.aivan.microevolution.worlds.points.Point;
+import org.aivan.microevolution.worlds.processors.ActionProcessorRunnable;
+import org.aivan.microevolution.worlds.processors.DeadLifeFormProcessorRunnable;
+import org.aivan.microevolution.worlds.processors.DeadPredatorCheckRunnable;
+import org.aivan.microevolution.worlds.processors.LifeFormTickerRunnable;
+import org.aivan.microevolution.worlds.processors.PredatorProcessorRunnable;
+import org.aivan.microevolution.worlds.processors.PredatorTickerRunnable;
 import org.apache.log4j.Logger;
 
 public abstract class World implements Tickable {
@@ -34,7 +40,9 @@ public abstract class World implements Tickable {
 
   // helper stuff
   int threadCount = 4;
-
+  ThreadPoolExecutor tpe = new ThreadPoolExecutor(threadCount, threadCount, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(
+      threadCount));
+  
   public void setPredatorFactory(PredatorFactory predatorFactory) {
     this.predatorFactory = predatorFactory;
   }
@@ -67,16 +75,12 @@ public abstract class World implements Tickable {
 long startTime = System.currentTimeMillis();
 long lastTime = startTime;
 
-    ThreadPoolExecutor tpe = new ThreadPoolExecutor(threadCount, threadCount, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(
-        threadCount));
-
     tickCounter++;
 
     //log.trace("tick, new tickCounter: " + tickCounter);
 
     //log.trace("ticking foodFactory ...");
     foodFactory.tick();
-
     lastTime = reportTime(lastTime,"foodFactory tick");
     
     //log.trace("ticking predators ...");
@@ -96,12 +100,10 @@ long lastTime = startTime;
       
     }
     waitForFutureTasks(futureTasks);
-
     lastTime = reportTime(lastTime,"predator tick");
 
     //log.trace("ticking predatorFactory ...");
     predatorFactory.tick();
-
     lastTime = reportTime(lastTime,"predatorFactory tick");
 
     //log.trace("ticking life forms ...");
@@ -120,7 +122,6 @@ long lastTime = startTime;
       futureTasks.add(ft);
     }
     waitForFutureTasks(futureTasks);
-    
     lastTime = reportTime(lastTime,"life form tick");
     
     //log.trace("Processing lifeform actions ...");
@@ -139,51 +140,68 @@ long lastTime = startTime;
       tpe.execute(ft);
       futureTasks.add(ft);
     }
-    lastTime = reportTime(lastTime,"actions queuing");
     waitForFutureTasks(futureTasks);
-
     lastTime = reportTime(lastTime,"actions processing");
     
     //log.trace("checking for dead life forms...");
 
-    for (Point point : points) {
-      //log.trace("processing point: " + point);
-      // We need a copy of a set due to concurrent updated while iterating
-      Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
-      for (LifeForm lifeForm : lifeFormsCopy) {
-        if (lifeForm.isDead()) {
-          point.lifeFormLeft(lifeForm);
-          lifeForms.remove(lifeForm);
-          deadLifeForms.add(lifeForm);
-        }
+    pointCount = points.size();
+    segmentSize = pointCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = pointCount;
       }
+      DeadLifeFormProcessorRunnable deadLifeFormProcessorRunnable = new DeadLifeFormProcessorRunnable(segmentStart, segmentEnd, points, this);
+      FutureTask<String> ft = new FutureTask<String>(deadLifeFormProcessorRunnable, ""+i);
+      tpe.execute(ft);
+      futureTasks.add(ft);
     }
-
+    waitForFutureTasks(futureTasks);
     lastTime = reportTime(lastTime,"dead life forms check");
-
+    
+    
     //log.trace("checking for dead predators...");
 
-    for (Point point : points) {
-      //log.trace("processing point: " + point);
-      Predator predator = point.getPredator();
-      if (predator != null && predator.isDead()) {
-        point.setPreadator(null);
+    pointCount = points.size();
+    segmentSize = pointCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = pointCount;
       }
+      DeadPredatorCheckRunnable deadPredatorCheckRunnable = new DeadPredatorCheckRunnable(segmentStart, segmentEnd, points);
+      FutureTask<String> ft = new FutureTask<String>(deadPredatorCheckRunnable, ""+i);
+      tpe.execute(ft);
+      futureTasks.add(ft);
     }
-
+    waitForFutureTasks(futureTasks);
     lastTime = reportTime(lastTime,"dead predators check");
+    
 
     //log.trace("processing predators...");
 
-    for (Point point : points) {
-      //log.trace("processing point: " + point);
-      if (point.getPredator() != null && point.getLifeForms().size() > 0) {
-        Predator predator = point.getPredator();
-        predator.meet(point.getLifeForms().get(0));
+    pointCount = points.size();
+    segmentSize = pointCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = pointCount;
       }
+      PredatorProcessorRunnable predatorProcessorRunnable = new PredatorProcessorRunnable(segmentStart, segmentEnd, points);
+      FutureTask<String> ft = new FutureTask<String>(predatorProcessorRunnable, ""+i);
+      tpe.execute(ft);
+      futureTasks.add(ft);
     }
-
+    waitForFutureTasks(futureTasks);
     lastTime = reportTime(lastTime,"predator processing");
+
     
     //log.trace("checking for dead life forms...");
 
@@ -208,7 +226,7 @@ long lastTime = startTime;
     for (FutureTask<String> future : futureTasks) {
       try {
         String result = future.get();
-        //log.trace("FutureTask complted with result: "+result);
+        log.trace("FutureTask complted with result: "+result);
       } catch (Exception e) {
         log.error("Error",e);
         throw new RuntimeException("Predator ticking failed!");
@@ -359,4 +377,7 @@ long lastTime = startTime;
     return predators;
   }
 
+  public void shutdow() {
+    tpe.shutdown();
+  }
 }

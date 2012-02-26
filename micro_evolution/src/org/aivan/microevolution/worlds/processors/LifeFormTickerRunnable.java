@@ -1,10 +1,10 @@
-package org.aivan.microevolution.worlds;
+package org.aivan.microevolution.worlds.processors;
 
 import java.util.List;
 
 import org.aivan.microevolution.lifeforms.LifeForm;
 
-public class LifeFormTickerRunnable extends SegmentRunnable {
+public class LifeFormTickerRunnable extends SegmentProcessorRunnable {
 
   List<LifeForm> lifeForms;
 

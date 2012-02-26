@@ -1,4 +1,4 @@
-package org.aivan.microevolution.worlds;
+package org.aivan.microevolution.worlds.processors;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
-public class ActionProcessorRunnable extends SegmentRunnable {
+public class ActionProcessorRunnable extends SegmentProcessorRunnable {
 
   static final Logger log = Logger.getLogger(ActionProcessorRunnable.class);
 
@@ -37,14 +37,14 @@ public class ActionProcessorRunnable extends SegmentRunnable {
         } else {
           for (Action action : actions) {
             if (action instanceof EatAction) {
-              EatAction eatAction = (EatAction) action;
+              //EatAction eatAction = (EatAction) action;
               //log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
               if (point.getFood() != null) {
                 lifeForm.eat(point.getFood());
                 point.setFood(null);
               }
             } else if (action instanceof MoveAction) {
-              MoveAction moveAction = (MoveAction) action;
+              //MoveAction moveAction = (MoveAction) action;
               //log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
               point.lifeFormLeft(lifeForm);
               point.getNext().lifeFormEntered(lifeForm);

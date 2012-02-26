@@ -21,6 +21,7 @@ public class DummyBrain extends Brain {
 
   static final Logger log = Logger.getLogger(DummyBrain.class);
 
+  @SuppressWarnings("unused")
   private long tickCounter = 0;
 
   @Override

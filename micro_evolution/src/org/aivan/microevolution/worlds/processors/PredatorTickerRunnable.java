@@ -1,10 +1,10 @@
-package org.aivan.microevolution.worlds;
+package org.aivan.microevolution.worlds.processors;
 
 import java.util.List;
 
 import org.aivan.microevolution.lifeforms.predators.Predator;
 
-public class PredatorTickerRunnable extends SegmentRunnable {
+public class PredatorTickerRunnable extends SegmentProcessorRunnable {
 
   List<Predator> predators;
 

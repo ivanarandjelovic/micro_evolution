@@ -54,6 +54,8 @@ public class ME {
     log.info("================ ");
     log.info("\n" + this.getGeneralReport());
 
+    world.shutdow();
+
   }
 
   public String getReport() {
