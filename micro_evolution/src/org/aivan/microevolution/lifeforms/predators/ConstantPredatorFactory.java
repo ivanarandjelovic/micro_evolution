@@ -39,12 +39,12 @@ public class ConstantPredatorFactory extends PredatorFactory implements Tickable
   }
 
   private void generateOnePredator(List<Point> points, long pointCount) {
-    Predator predator = new Predator1(PREDATOR_DURATION);
+    Predator predator = new Predator1(getNextPredatorCounter(), PREDATOR_DURATION);
     int rand = (int) Math.floor(Math.random() * pointCount);
     Point point = points.get(rand);
     if (point.getPredator() == null) {
       //log.trace("Point has no predator, adding it");
-      point.setPreadator(predator);
+      point.setPredator(predator);
     } else {
       //log.trace("Point has predator already, skipping.");
     }

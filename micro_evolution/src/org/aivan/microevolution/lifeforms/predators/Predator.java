@@ -5,8 +5,11 @@ import org.aivan.microevolution.lifeforms.LifeForm;
 
 public abstract class Predator implements Tickable {
 
-  public Predator() {
+  long id;
+  
+  public Predator(long id) {
     super();
+    this.id = id;
   }
 
   public abstract boolean isDead();

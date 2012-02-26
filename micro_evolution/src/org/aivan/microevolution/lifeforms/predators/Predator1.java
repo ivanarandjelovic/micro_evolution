@@ -10,19 +10,19 @@ public class Predator1 extends Predator implements Tickable {
 
   long duration;
 
-  public Predator1(long duration) {
-    super();
+  public Predator1(long id, long duration) {
+    super(id);
     this.duration = duration;
     //log.trace(this + " created with duration: " + duration);
   }
 
   @Override
   public void tick() {
-    //log.trace("tick ...");
+    //log.trace("tick ... on " + this);
     if (duration > 0) {
       duration--;
     } else {
-      throw new RuntimeException("Duration of the predator is already 0!!!");
+      throw new RuntimeException("Duration of the predator is already 0!!! for: "+this);
     }
   }
 
@@ -34,4 +34,8 @@ public class Predator1 extends Predator implements Tickable {
     return duration == 0;
   }
 
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName() + "/" + id;
+  }
 }

@@ -16,7 +16,7 @@ public class ConstantFoodFactory extends FoodFactory {
   private double currentFoodFactor = 0.0;
 
   public ConstantFoodFactory() {
-    log.trace("Created");
+    //log.trace("Created");
   }
 
   @Override
@@ -45,12 +45,12 @@ public class ConstantFoodFactory extends FoodFactory {
 
   @Override
   public void init() {
-    log.trace("init...");
+    //log.trace("init...");
 
     List<Point> points = world.getPoints();
     long pointCount = points.size();
 
-    log.trace("Generating initial food(s)...");
+    //log.trace("Generating initial food(s)...");
 
     while ((pointCount / 100.0) * INITIAL_FOOD_COUNT_PERCENT > world.getFood().size()) {
       //log.trace("Generating initial food.");

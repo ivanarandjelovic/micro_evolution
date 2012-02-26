@@ -14,13 +14,13 @@ public abstract class FoodFactory implements Tickable {
 
   public FoodFactory() {
     super();
-    log.trace("Created");
+    //log.trace("Created");
   }
 
   public abstract void init();
 
   public void setWorld(World world) {
-    log.trace("world is set");
+    //log.trace("world is set");
     this.world = world;
   }
 
