@@ -20,5 +20,8 @@ public abstract class Brain implements Tickable {
   public abstract void lifeFormInSight(double signalStrength);
   
   public abstract void hunger(double signalStrength);
+
+
+  public abstract Brain combineWith(Brain brain);
   
 }

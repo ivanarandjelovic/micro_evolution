@@ -22,6 +22,7 @@ import org.aivan.microevolution.worlds.processors.DeadPredatorCheckRunnable;
 import org.aivan.microevolution.worlds.processors.LifeFormTickerRunnable;
 import org.aivan.microevolution.worlds.processors.PredatorProcessorRunnable;
 import org.aivan.microevolution.worlds.processors.PredatorTickerRunnable;
+import org.aivan.microevolution.worlds.processors.ReproductionProcessorRunnable;
 import org.apache.log4j.Logger;
 
 public abstract class World implements Tickable {
@@ -200,6 +201,25 @@ long lastTime = startTime;
 
     lastTime = deadLifeFormCheck(lastTime, futureTasks);
 
+    //log.trace("processing reproduction...");
+
+    pointCount = points.size();
+    segmentSize = pointCount / threadCount;
+    futureTasks.clear();
+    for (int i = 0; i < threadCount; i++) {
+      int segmentStart = i * segmentSize;
+      int segmentEnd = (i + 1) * segmentSize;
+      if (i == (threadCount - 1)) {
+        segmentEnd = lifeFormCount;
+      }
+      ReproductionProcessorRunnable reproductionProcessor = new ReproductionProcessorRunnable(segmentStart, segmentEnd, points);
+      FutureTask<String> ft = new FutureTask<String>(reproductionProcessor, ""+i);
+      tpe.execute(ft);
+      futureTasks.add(ft);
+    }
+    waitForFutureTasks(futureTasks);
+    lastTime = reportTime(lastTime,"reproduction processing");
+
     lastTime = reportTime(startTime,"tick time");
   }
 
@@ -232,7 +252,7 @@ long lastTime = startTime;
         log.trace("FutureTask complted with result: "+result);
       } catch (Exception e) {
         log.error("Error",e);
-        throw new RuntimeException("Predator ticking failed!");
+        throw new RuntimeException("parallel processing failed" ,e);
       }
     }
   }

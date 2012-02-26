@@ -6,6 +6,7 @@ import org.aivan.microevolution.brains.Brain;
 import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.general.Tickable;
+import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
@@ -17,8 +18,11 @@ public class LifeForm implements Tickable {
     PREDATOR, HUNGER, AGE
   }
 
+  private LifeFormFactory lifeFormFactory = null;
   protected Brain brain = null;
   private long maxAge = 0;
+  private long minimumReproductionPowerLevel = 0;
+  private long reproductionPowerCost = 0;
   private long id;
   private DeathReason diedFrom = null;
 
@@ -33,12 +37,16 @@ public class LifeForm implements Tickable {
   // Helper stuff
   Point locatonPoint = null;
 
-  public LifeForm(long id, Brain brain, long initialPowerLevel, long maxAge) {
+  public LifeForm(LifeFormFactory lifeFormFactory, long id, Brain brain, long initialPowerLevel, long maxAge,
+      long minimumReproductionPowerLevel, long reproductionPowerCost) {
     super();
     this.id = id;
     this.brain = brain;
     this.powerLevel = initialPowerLevel;
     this.maxAge = maxAge;
+    this.minimumReproductionPowerLevel = minimumReproductionPowerLevel;
+    this.reproductionPowerCost = reproductionPowerCost;
+    this.lifeFormFactory = lifeFormFactory;
   }
 
   @Override
@@ -128,6 +136,18 @@ public class LifeForm implements Tickable {
     return age;
   }
 
+  public long getPowerLevel() {
+    return powerLevel;
+  }
+
+  public boolean canReproduce() {
+    return powerLevel > minimumReproductionPowerLevel;
+  }
+
+  public void reproductionDone() {
+    powerLevel -= reproductionPowerCost;
+  }
+
   // INPUTS:
 
   public void foodInSight(double signalStrength) {
@@ -140,6 +160,21 @@ public class LifeForm implements Tickable {
 
   public void lifeFormInSight(double signalStrength) {
     brain.lifeFormInSight(signalStrength);
+  }
+
+  public LifeForm reproduceWith(LifeForm pairForm) {
+    Brain newBrain = brain.combineWith(pairForm.getBrain());
+    LifeForm newLifeForm = new LifeForm(lifeFormFactory, lifeFormFactory.getNextLifeFormCounter(), newBrain,
+        reproductionPowerCost * 2, maxAge, minimumReproductionPowerLevel, reproductionPowerCost);
+    
+    reproductionDone();
+    pairForm.reproductionDone();
+    
+    return newLifeForm;
+  }
+
+  private Brain getBrain() {
+    return brain;
   }
 
 }

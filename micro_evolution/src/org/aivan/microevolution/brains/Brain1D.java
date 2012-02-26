@@ -46,4 +46,10 @@ public class Brain1D extends Brain {
     
   }
 
+  @Override
+  public Brain combineWith(Brain brain) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

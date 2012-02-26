@@ -76,4 +76,10 @@ public class DummyBrain extends Brain {
     
   }
 
+  @Override
+  public Brain combineWith(Brain brain) {
+    // Dummy brains are all the same
+    return new DummyBrain();
+  }
+
 }

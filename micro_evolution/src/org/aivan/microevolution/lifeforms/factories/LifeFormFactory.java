@@ -18,7 +18,7 @@ public abstract class LifeFormFactory {
 
   public abstract void init();
 
-  synchronized protected long getNextLifeFormCounter() {
+  synchronized public long getNextLifeFormCounter() {
     return lifeFormCounter++;
   }
 }
