@@ -22,4 +22,28 @@ public class Brain2D extends Brain {
     return null;
   }
 
+  @Override
+  public void foodInSight(double signalStrength) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void predatorInSight(double signalStrength) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void lifeFormInSight(double signalStrength) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void hunger(double signalStrength) {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

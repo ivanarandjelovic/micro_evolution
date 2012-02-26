@@ -1,10 +1,14 @@
-World: 
+Short term: 
 
 - implement input
-- tune parameters
+- implement brain1 brain
+- implement 2D brain
 
 Long term:
 
 - Implement GUI (visualize worlds)
 - Implement load/save of worlds and evolved life forms
+
+Constant: 
+
 - re-factor  

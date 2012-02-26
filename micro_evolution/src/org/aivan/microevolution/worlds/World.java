@@ -377,8 +377,8 @@ long lastTime = startTime;
     return predators;
   }
 
-  public void shutdow() throws InterruptedException {
+  public void shutdown() throws InterruptedException {
     tpe.shutdown();
-    tpe.awaitTermination(10, TimeUnit.SECONDS);
+    tpe.awaitTermination(100, TimeUnit.SECONDS);
   }
 }

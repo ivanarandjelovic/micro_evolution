@@ -40,11 +40,15 @@ public abstract class Point {
   public void lifeFormEntered(LifeForm lifeForm) {
     //log.trace("Life form entetered: " + lifeForm);
     lifeForms.add(lifeForm);
+    lifeForm.setLocatonPoint(this);
   }
 
   public void lifeFormLeft(LifeForm lifeForm) {
     //log.trace("Life form left: " + lifeForm);
     lifeForms.remove(lifeForm);
+    if(this.equals(lifeForm.getLocatonPoint())) {
+      lifeForm.setLocatonPoint(null);
+    }
   }
 
   public Food getFood() {

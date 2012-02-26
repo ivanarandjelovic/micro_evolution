@@ -73,7 +73,7 @@ public class ME {
     log.info("Died from hunger  : "+hungerDeath);
     log.info("Died from unknown : "+unknownReason);
     
-    world.shutdow();
+    world.shutdown();
 
   }
 

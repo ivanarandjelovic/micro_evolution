@@ -55,4 +55,25 @@ public class DummyBrain extends Brain {
     return actions;
   }
 
+  @Override
+  public void foodInSight(double signalStrength) {
+    // dummy brain ignores inputs
+  }
+
+  @Override
+  public void predatorInSight(double signalStrength) {
+    // dummy brain ignores inputs
+  }
+
+  @Override
+  public void lifeFormInSight(double signalStrength) {
+    // dummy brain ignores inputs
+  }
+
+  @Override
+  public void hunger(double signalStrength) {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

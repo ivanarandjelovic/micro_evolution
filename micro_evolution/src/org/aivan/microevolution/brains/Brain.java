@@ -12,4 +12,13 @@ public abstract class Brain implements Tickable {
 
   public abstract List<Action> getActions();
 
+  
+  public abstract void foodInSight(double signalStrength);
+  
+  public abstract void predatorInSight(double signalStrength);
+
+  public abstract void lifeFormInSight(double signalStrength);
+  
+  public abstract void hunger(double signalStrength);
+  
 }
