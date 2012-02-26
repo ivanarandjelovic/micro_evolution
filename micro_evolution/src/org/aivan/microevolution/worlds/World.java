@@ -105,14 +105,14 @@ long lastTime = startTime;
         } else {
           for (Action action : actions) {
             if (action instanceof EatAction) {
-              EatAction eatAction = (EatAction) action;
+              //EatAction eatAction = (EatAction) action;
               //log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
               if (point.getFood() != null) {
                 lifeForm.eat(point.getFood());
                 point.setFood(null);
               }
             } else if (action instanceof MoveAction) {
-              MoveAction moveAction = (MoveAction) action;
+              //MoveAction moveAction = (MoveAction) action;
               //log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
               point.lifeFormLeft(lifeForm);
               point.getNext().lifeFormEntered(lifeForm);
@@ -186,13 +186,13 @@ long lastTime = startTime;
     lastTime = reportTime(lastTime, "dead life forms");
 
     long endTime = System.currentTimeMillis();
-    log.info("tick time: "+(endTime - startTime)+ " ms");
+    log.trace("tick time: "+(endTime - startTime)+ " ms");
   }
 
   private long reportTime(long startTime, String string) {
     long currentTime = System.currentTimeMillis();
     
-    log.debug(string+": "+(currentTime-startTime)+" ms");
+    log.trace(string+": "+(currentTime-startTime)+" ms");
     
     return currentTime;
   }
