@@ -1,9 +1,7 @@
 World: 
 
-- introduce predators
 - implement input
 - tune parameters
-- improve speed, add parallel processing if possible
 
 Long term:
 

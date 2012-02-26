@@ -31,18 +31,20 @@ public class ME {
 
     log.debug("Ticking world for: " + ticks + " ticks ...");
     for (long i = 0; i < ticks; i++) {
-      log.debug("Tick: " + i + " ticking ...");
+      if (i % 10 == 0) {
+        log.debug("Tick: " + i + " ticking ...");
+      }
       world.tick();
-      if (i % generalReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
+      if (generalReportOnTicks > 0 && i % generalReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
         log.info(getGeneralReport());
       }
-      
+
       if (world.getLifeForms().size() == 0) {
         log.info("Stopping evolution, all life forms dead. Current tick count: " + i + " of " + ticks);
         break;
       }
 
-      if (i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
+      if (reportOnTicks > 0 && i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
         log.info("Report during evolution on each " + reportOnTicks + " ticks: ");
         log.info("================ ");
         log.info("\n" + this.getReport());
@@ -54,6 +56,23 @@ public class ME {
     log.info("================ ");
     log.info("\n" + this.getGeneralReport());
 
+    log.info("Life forms death reasons: ");
+    long predatorDeath = 0;
+    long hungerDeath = 0;
+    long unknownReason = 0;
+    for(LifeForm lifeForm : world.getDeadLifeForms()) {
+      if(lifeForm.getDiedFrom() == 1) {
+        predatorDeath++;
+      } else if (lifeForm.getDiedFrom() == 2){
+        hungerDeath ++;
+      } else {
+        unknownReason++;
+      }
+    }
+    log.info("Died from predator: "+predatorDeath);
+    log.info("Died from hunger  : "+hungerDeath);
+    log.info("Died from unknown : "+unknownReason);
+    
     world.shutdow();
 
   }
@@ -61,15 +80,18 @@ public class ME {
   public String getReport() {
     String report = "";
 
-
     report += getGeneralReport();
-    report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
-    report += "\nWorld's food placement:" + world.getFoodReport();
-    report += "\nWorld's predator placement:" + world.getPredatorReport();
-    report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodAndPredatorReport();
-    report += "\n:LifeForm details:";
-    for (LifeForm lifeForm : world.getLifeForms()) {
-      report += "\n" + lifeForm.getReport();
+    if (world.getPoints().size() > 1000) {
+      report += "\nDetailed placement report not availabe when number of points > 1000";
+    } else {
+      report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
+      report += "\nWorld's food placement:" + world.getFoodReport();
+      report += "\nWorld's predator placement:" + world.getPredatorReport();
+      report += "\nWorld's life forms and food placement:" + world.getLifeFormAndFoodAndPredatorReport();
+      report += "\n:LifeForm details:";
+      for (LifeForm lifeForm : world.getLifeForms()) {
+        report += "\n" + lifeForm.getReport();
+      }
     }
 
     return report;

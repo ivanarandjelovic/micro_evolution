@@ -15,6 +15,7 @@ public abstract class LifeForm implements Tickable {
   protected Brain brain = null;
 
   private long id;
+  private int diedFrom = 0;
 
   // Simle counters for statistics
   private long eatenFoodCount = 0;
@@ -39,6 +40,13 @@ public abstract class LifeForm implements Tickable {
     //log.trace("moved");
     moveCount++;
     powerLevel--;
+    checkIfDiedFromHunger();
+  }
+
+  private void checkIfDiedFromHunger() {
+    if(powerLevel==0) {
+      diedFrom = 2;
+    }
   }
 
   public void eat(Food food) {
@@ -65,6 +73,7 @@ public abstract class LifeForm implements Tickable {
     //log.trace("ticking brain ...");
     brain.tick();
     powerLevel--;
+    checkIfDiedFromHunger();
   }
 
   public List<Action> getActions() {
@@ -77,6 +86,11 @@ public abstract class LifeForm implements Tickable {
 
   public void kill() {
     this.powerLevel = 0;
+    diedFrom = 1;
+  }
+
+  public int getDiedFrom() {
+    return diedFrom;
   }
 
 }
