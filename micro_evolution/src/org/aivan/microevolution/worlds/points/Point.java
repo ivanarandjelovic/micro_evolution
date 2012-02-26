@@ -88,22 +88,21 @@ public abstract class Point {
     return eatenFood;
   }
 
-  public void setPreadator(Predator predator) {
+  public void setPredator(Predator predator) {
 
     //log.trace("Predator added" + predator);
 
     if (this.predator == null) {
       world.getPredators().add(predator);
-      this.predator = predator;
     } else if (predator == null) {
       world.getPredators().remove(this.predator);
-      this.predator = predator;
     } else {
       throw new RuntimeException("Preadator already exists on this point or null predator set already!");
     }
+    this.predator = predator;
   }
 
-  public Predator removePreadator() {
+  public Predator removePredator() {
     Predator predator = this.predator;
     //log.trace("Predator removed" + this.predator);
 

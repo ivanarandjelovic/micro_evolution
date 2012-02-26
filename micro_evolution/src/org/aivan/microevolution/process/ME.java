@@ -24,7 +24,7 @@ public class ME {
     world.init();
   }
 
-  public void runWorld(long ticks, long reportOnTicks, long generalReportOnTicks) {
+  public void runWorld(long ticks, long reportOnTicks, long generalReportOnTicks) throws InterruptedException {
     log.info("Report at START: ");
     log.info("================ ");
     log.info("\n" + this.getGeneralReport());

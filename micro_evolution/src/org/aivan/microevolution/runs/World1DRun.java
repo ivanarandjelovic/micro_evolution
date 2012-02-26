@@ -33,7 +33,12 @@ public class World1DRun {
     world.setPredatorFactory(new ConstantPredatorFactory(world));
     ME me = new ME(world);
 
-    me.runWorld(TICKS_TO_RUN, REPORT_ON_TICKS, GENERAL_REPORT_ON_TICKS);
+    try {
+      me.runWorld(TICKS_TO_RUN, REPORT_ON_TICKS, GENERAL_REPORT_ON_TICKS);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
     log.info("Run complete.");
 
