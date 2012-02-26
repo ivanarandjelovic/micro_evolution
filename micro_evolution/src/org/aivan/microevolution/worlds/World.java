@@ -212,7 +212,7 @@ long lastTime = startTime;
       if (i == (threadCount - 1)) {
         segmentEnd = lifeFormCount;
       }
-      ReproductionProcessorRunnable reproductionProcessor = new ReproductionProcessorRunnable(segmentStart, segmentEnd, points);
+      ReproductionProcessorRunnable reproductionProcessor = new ReproductionProcessorRunnable(segmentStart, segmentEnd, points, this);
       FutureTask<String> ft = new FutureTask<String>(reproductionProcessor, ""+i);
       tpe.execute(ft);
       futureTasks.add(ft);

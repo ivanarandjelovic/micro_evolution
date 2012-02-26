@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.aivan.microevolution.lifeforms.LifeForm;
+import org.aivan.microevolution.worlds.World;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
@@ -12,10 +13,13 @@ public class ReproductionProcessorRunnable extends SegmentProcessorRunnable {
   static final Logger log = Logger.getLogger(ReproductionProcessorRunnable.class);
 
   List<Point> points;
+  World world;
+   
 
-  public ReproductionProcessorRunnable(int segmentStart, int segmentEnd, List<Point> points) {
+  public ReproductionProcessorRunnable(int segmentStart, int segmentEnd, List<Point> points, World world) {
     super(segmentStart, segmentEnd);
     this.points = points;
+    this.world = world;
   }
 
   @Override
@@ -32,9 +36,12 @@ public class ReproductionProcessorRunnable extends SegmentProcessorRunnable {
             if (pairForm.canReproduce()) {
               // Do re-production
               LifeForm newLifeForm = lifeform.reproduceWith(pairForm);
+              
+              // Introduce life form into the world
               point.lifeFormEntered(newLifeForm);
-
-              log.trace("Reproduction done, new life form: " + newLifeForm);
+              world.getLifeForms().add(newLifeForm);
+              
+              log.trace("Reproduction done on point: "+point+", new life form: " + newLifeForm);
 
               // skip pair, he/she cannot reproduce immediately
               lifeFormCount++;
