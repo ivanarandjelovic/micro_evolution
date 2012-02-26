@@ -27,7 +27,7 @@ public class ME {
   public void runWorld(long ticks, long reportOnTicks, long generalReportOnTicks) {
     log.info("Report at START: ");
     log.info("================ ");
-    log.info("\n" + this.getReport());
+    log.info("\n" + this.getGeneralReport());
 
     log.debug("Ticking world for: " + ticks + " ticks ...");
     for (long i = 0; i < ticks; i++) {
@@ -52,15 +52,14 @@ public class ME {
 
     log.info("Report at END: ");
     log.info("================ ");
-    log.info("\n" + this.getReport());
+    log.info("\n" + this.getGeneralReport());
 
   }
 
   public String getReport() {
     String report = "";
 
-    report += "World : " + world.getClass().getName();
-    report += "\nWorld point count: " + world.getPoints().size();
+
     report += getGeneralReport();
     report += "\nWorld's lifeForm placement:" + world.getLifeFormReport();
     report += "\nWorld's food placement:" + world.getFoodReport();
@@ -76,6 +75,8 @@ public class ME {
 
   private String getGeneralReport() {
     String report = "";
+    report += "World : " + world.getClass().getName();
+    report += "\nWorld point count: " + world.getPoints().size();
     report += "\nWorld's tick count: " + world.getTickCounter();
     report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
     report += "\nWorld's food count: " + world.getFood().size();

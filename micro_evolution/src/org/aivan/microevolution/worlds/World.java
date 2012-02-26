@@ -219,7 +219,7 @@ long lastTime = startTime;
   private long reportTime(long startTime, String string) {
     long currentTime = System.currentTimeMillis();
     
-    log.info(string+": "+(currentTime-startTime)+" ms");
+    log.debug(string+": "+(currentTime-startTime)+" ms");
     
     return currentTime;
   }
