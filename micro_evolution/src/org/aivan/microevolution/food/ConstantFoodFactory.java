@@ -22,7 +22,7 @@ public class ConstantFoodFactory extends FoodFactory {
   @Override
   public void tick() {
 
-    log.trace("tick...");
+    //log.trace("tick...");
 
     List<Point> points = world.getPoints();
     long pointCount = points.size();
@@ -30,13 +30,13 @@ public class ConstantFoodFactory extends FoodFactory {
     currentFoodFactor += (pointCount * FOOD_PER_POINT_PER_TICK);
 
     if (currentFoodFactor >= 1.0) {
-      log.trace("Creating new food(s) ...");
+      //log.trace("Creating new food(s) ...");
       while (currentFoodFactor >= 1.0) {
         if ( (pointCount / 100.0) * MAX_POINT_WITH_FOOD_PERCENT > world.getFood().size()) {
-          log.trace("Creating new food.");
+          //log.trace("Creating new food.");
           generateOneFood(points, pointCount);
         } else {
-          log.trace("Too much food exists, skippig.");
+          //log.trace("Too much food exists, skippig.");
         }
         currentFoodFactor -= 1.0;
       }
@@ -53,7 +53,7 @@ public class ConstantFoodFactory extends FoodFactory {
     log.trace("Generating initial food(s)...");
 
     while ((pointCount / 100.0) * INITIAL_FOOD_COUNT_PERCENT > world.getFood().size()) {
-      log.trace("Generating initial food.");
+      //log.trace("Generating initial food.");
       generateOneFood(points, pointCount);
     }
 
@@ -64,10 +64,10 @@ public class ConstantFoodFactory extends FoodFactory {
     int rand = (int) Math.floor(Math.random() * pointCount);
     Point point = points.get(rand);
     if (point.getFood() == null) {
-      log.trace("Point has no food, adding it");
+      //log.trace("Point has no food, adding it");
       point.setFood(food);
     } else {
-      log.trace("Point has food already, skipping.");
+      //log.trace("Point has food already, skipping.");
     }
   }
 

@@ -11,7 +11,7 @@ public class Brain2D extends Brain {
 
   @Override
   public void tick() {
-    log.trace("tick...");
+    //log.trace("tick...");
     // TODO Auto-generated method stub
 
   }

@@ -66,54 +66,54 @@ long lastTime = startTime;
 
     tickCounter++;
 
-    log.trace("tick, new tickCounter: " + tickCounter);
+    //log.trace("tick, new tickCounter: " + tickCounter);
 
-    log.trace("ticking foodFactory ...");
+    //log.trace("ticking foodFactory ...");
     foodFactory.tick();
 
     lastTime = reportTime(lastTime, "foodFactory.tick();");
     
-    log.trace("ticking predators ...");
+    //log.trace("ticking predators ...");
     for (Predator predator : predators) {
       predator.tick();
     }
 
     lastTime = reportTime(lastTime, "predator.tick();");
 
-    log.trace("ticking predatorFactory ...");
+    //log.trace("ticking predatorFactory ...");
     predatorFactory.tick();
 
     lastTime = reportTime(lastTime, "predatorFactory.tick();");
 
-    log.trace("ticking life forms ...");
+    //log.trace("ticking life forms ...");
     for (LifeForm lifeForm : lifeForms) {
       lifeForm.tick();
     }
 
     lastTime = reportTime(lastTime, "lifeForm.tick();");
 
-    log.trace("Processing lifeform actions ...");
+    //log.trace("Processing lifeform actions ...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {
         List<Action> actions = lifeForm.getActions();
         if (actions.isEmpty()) {
-          log.trace("lifeform: " + lifeForm + " no actions.");
+          //log.trace("lifeform: " + lifeForm + " no actions.");
         } else {
           for (Action action : actions) {
             if (action instanceof EatAction) {
               EatAction eatAction = (EatAction) action;
-              log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
+              //log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
               if (point.getFood() != null) {
                 lifeForm.eat(point.getFood());
                 point.setFood(null);
               }
             } else if (action instanceof MoveAction) {
               MoveAction moveAction = (MoveAction) action;
-              log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
+              //log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
               point.lifeFormLeft(lifeForm);
               point.getNext().lifeFormEntered(lifeForm);
               lifeForm.moved();
@@ -127,10 +127,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime, "processing actions.");
 
-    log.trace("checking for dead life forms...");
+    //log.trace("checking for dead life forms...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {
@@ -144,10 +144,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime, "dead life forms");
 
-    log.trace("checking for dead predators...");
+    //log.trace("checking for dead predators...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       Predator predator = point.getPredator();
       if (predator != null && predator.isDead()) {
         point.setPreadator(null);
@@ -156,10 +156,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime, "dead predators");
 
-    log.trace("processing predators...");
+    //log.trace("processing predators...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       if (point.getPredator() != null && point.getLifeForms().size() > 0) {
         Predator predator = point.getPredator();
         predator.meet(point.getLifeForms().get(0));
@@ -168,10 +168,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime, "processing predators");
 
-    log.trace("checking for dead life forms...");
+    //log.trace("checking for dead life forms...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {

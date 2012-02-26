@@ -38,12 +38,12 @@ public abstract class Point {
   }
 
   public void lifeFormEntered(LifeForm lifeForm) {
-    log.trace("Life form entetered: " + lifeForm);
+    //log.trace("Life form entetered: " + lifeForm);
     lifeForms.add(lifeForm);
   }
 
   public void lifeFormLeft(LifeForm lifeForm) {
-    log.trace("Life form left: " + lifeForm);
+    //log.trace("Life form left: " + lifeForm);
     lifeForms.remove(lifeForm);
   }
 
@@ -61,7 +61,7 @@ public abstract class Point {
 
   public void setFood(Food food) {
 
-    log.trace("Food added" + food);
+    //log.trace("Food added" + food);
 
     if (this.food == null) {
       world.getFood().add(food);
@@ -77,7 +77,7 @@ public abstract class Point {
   public Food removeFood() {
     Food eatenFood = this.food;
 
-    log.trace("Food removed" + eatenFood);
+    //log.trace("Food removed" + eatenFood);
 
     if (this.food != null) {
       world.getFood().remove(this.food);
@@ -90,7 +90,7 @@ public abstract class Point {
 
   public void setPreadator(Predator predator) {
 
-    log.trace("Predator added" + predator);
+    //log.trace("Predator added" + predator);
 
     if (this.predator == null) {
       world.getPredators().add(predator);
@@ -105,7 +105,7 @@ public abstract class Point {
 
   public Predator removePreadator() {
     Predator predator = this.predator;
-    log.trace("Predator removed" + this.predator);
+    //log.trace("Predator removed" + this.predator);
 
     if (this.food != null) {
       world.getPredators().remove(this.predator);

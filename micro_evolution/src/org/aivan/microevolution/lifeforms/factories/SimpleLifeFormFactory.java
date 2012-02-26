@@ -20,7 +20,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
   @Override
   public void init() {
 
-    log.debug("init (creating initial life forms) ...");
+    log.trace("init (creating initial life forms) ...");
 
     List<Point> points = world.getPoints();
     List<LifeForm> lifeForms = world.getLifeForms();
@@ -33,7 +33,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
       world.getLifeForms().add(lifeForm);
       formCount++;
     }
-    log.debug("init done, life forms created: " + formCount);
+    log.trace("init done, life forms created: " + formCount);
 
   }
 
