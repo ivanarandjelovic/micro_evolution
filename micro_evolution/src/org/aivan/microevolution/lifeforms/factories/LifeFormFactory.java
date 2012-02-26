@@ -12,7 +12,7 @@ public abstract class LifeFormFactory {
   World world = null;
 
   public void setWorld(World world) {
-    log.trace("World set: " + world);
+    //log.trace("World set: " + world);
     this.world = world;
   }
 

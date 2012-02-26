@@ -36,7 +36,7 @@ public abstract class LifeForm implements Tickable {
   }
 
   public void moved() {
-    log.trace("moved");
+    //log.trace("moved");
     moveCount++;
     powerLevel--;
   }
@@ -60,9 +60,9 @@ public abstract class LifeForm implements Tickable {
 
   @Override
   public void tick() {
-    log.trace("tick...");
+    //log.trace("tick...");
 
-    log.trace("ticking brain ...");
+    //log.trace("ticking brain ...");
     brain.tick();
     powerLevel--;
   }

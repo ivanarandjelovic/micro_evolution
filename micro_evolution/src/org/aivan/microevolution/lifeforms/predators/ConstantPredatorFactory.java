@@ -22,7 +22,7 @@ public class ConstantPredatorFactory extends PredatorFactory implements Tickable
 
   @Override
   public void tick() {
-    log.trace("tick ...");
+    //log.trace("tick ...");
 
     List<Point> points = world.getPoints();
     long pointCount = points.size();
@@ -30,7 +30,7 @@ public class ConstantPredatorFactory extends PredatorFactory implements Tickable
     currentPredatorFactor += (pointCount * PREDATOR_PER_POINT_PER_TICK);
 
     if (currentPredatorFactor >= 1.0) {
-      log.trace("Creating new predators ...");
+      //log.trace("Creating new predators ...");
       while (currentPredatorFactor >= 1.0) {
         generateOnePredator(points, pointCount);
         currentPredatorFactor -= 1.0;
@@ -43,17 +43,17 @@ public class ConstantPredatorFactory extends PredatorFactory implements Tickable
     int rand = (int) Math.floor(Math.random() * pointCount);
     Point point = points.get(rand);
     if (point.getPredator() == null) {
-      log.trace("Point has no predator, adding it");
+      //log.trace("Point has no predator, adding it");
       point.setPreadator(predator);
     } else {
-      log.trace("Point has predator already, skipping.");
+      //log.trace("Point has predator already, skipping.");
     }
 
   }
 
   @Override
   public void init() {
-    log.trace("init...");
+    //log.trace("init...");
 
     // Nothing to do initially
   }

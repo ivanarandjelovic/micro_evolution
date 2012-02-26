@@ -27,25 +27,25 @@ public class ActionProcessorRunnable extends SegmentRunnable {
     for (int i = segmentStart; i < segmentEnd; i++) {
       Point point = points.get(i);
 
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {
         List<Action> actions = lifeForm.getActions();
         if (actions.isEmpty()) {
-          log.trace("lifeform: " + lifeForm + " no actions.");
+          //log.trace("lifeform: " + lifeForm + " no actions.");
         } else {
           for (Action action : actions) {
             if (action instanceof EatAction) {
               EatAction eatAction = (EatAction) action;
-              log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
+              //log.trace("lifeform: " + lifeForm + " eating: " + eatAction);
               if (point.getFood() != null) {
                 lifeForm.eat(point.getFood());
                 point.setFood(null);
               }
             } else if (action instanceof MoveAction) {
               MoveAction moveAction = (MoveAction) action;
-              log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
+              //log.trace("lifeform: " + lifeForm + " moving: " + moveAction);
               point.lifeFormLeft(lifeForm);
               point.getNext().lifeFormEntered(lifeForm);
               lifeForm.moved();

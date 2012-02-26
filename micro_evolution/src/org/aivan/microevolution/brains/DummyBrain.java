@@ -26,7 +26,7 @@ public class DummyBrain extends Brain {
   @Override
   public void tick() {
     tickCounter++;
-    log.trace("tick ... (counter: " + tickCounter + ")");
+    //log.trace("tick ... (counter: " + tickCounter + ")");
   }
 
   @Override
@@ -45,7 +45,7 @@ public class DummyBrain extends Brain {
       action = null;
     }
 
-    log.trace("returning: " + action);
+    //log.trace("returning: " + action);
 
     if (action != null) {
       actions.add(action);

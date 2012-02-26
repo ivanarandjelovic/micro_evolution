@@ -13,12 +13,12 @@ public class Predator1 extends Predator implements Tickable {
   public Predator1(long duration) {
     super();
     this.duration = duration;
-    log.trace(this + " created with duration: " + duration);
+    //log.trace(this + " created with duration: " + duration);
   }
 
   @Override
   public void tick() {
-    log.trace("tick ...");
+    //log.trace("tick ...");
     if (duration > 0) {
       duration--;
     } else {

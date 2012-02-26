@@ -72,14 +72,14 @@ long lastTime = startTime;
 
     tickCounter++;
 
-    log.trace("tick, new tickCounter: " + tickCounter);
+    //log.trace("tick, new tickCounter: " + tickCounter);
 
-    log.trace("ticking foodFactory ...");
+    //log.trace("ticking foodFactory ...");
     foodFactory.tick();
 
     lastTime = reportTime(lastTime,"foodFactory tick");
     
-    log.trace("ticking predators ...");
+    //log.trace("ticking predators ...");
     int predatorCount = predators.size();
     int segmentSize = predatorCount / threadCount;
     List<FutureTask<String>> futureTasks = new ArrayList<FutureTask<String>>();
@@ -99,12 +99,12 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime,"predator tick");
 
-    log.trace("ticking predatorFactory ...");
+    //log.trace("ticking predatorFactory ...");
     predatorFactory.tick();
 
     lastTime = reportTime(lastTime,"predatorFactory tick");
 
-    log.trace("ticking life forms ...");
+    //log.trace("ticking life forms ...");
     int lifeFormCount = lifeForms.size();
     segmentSize = lifeFormCount / threadCount;
     futureTasks.clear();
@@ -123,7 +123,7 @@ long lastTime = startTime;
     
     lastTime = reportTime(lastTime,"life form tick");
     
-    log.trace("Processing lifeform actions ...");
+    //log.trace("Processing lifeform actions ...");
 
     int pointCount = points.size();
     segmentSize = pointCount / threadCount;
@@ -144,10 +144,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime,"actions processing");
     
-    log.trace("checking for dead life forms...");
+    //log.trace("checking for dead life forms...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {
@@ -161,10 +161,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime,"dead life forms check");
 
-    log.trace("checking for dead predators...");
+    //log.trace("checking for dead predators...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       Predator predator = point.getPredator();
       if (predator != null && predator.isDead()) {
         point.setPreadator(null);
@@ -173,10 +173,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime,"dead predators check");
 
-    log.trace("processing predators...");
+    //log.trace("processing predators...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       if (point.getPredator() != null && point.getLifeForms().size() > 0) {
         Predator predator = point.getPredator();
         predator.meet(point.getLifeForms().get(0));
@@ -185,10 +185,10 @@ long lastTime = startTime;
 
     lastTime = reportTime(lastTime,"predator processing");
     
-    log.trace("checking for dead life forms...");
+    //log.trace("checking for dead life forms...");
 
     for (Point point : points) {
-      log.trace("processing point: " + point);
+      //log.trace("processing point: " + point);
       // We need a copy of a set due to concurrent updated while iterating
       Set<LifeForm> lifeFormsCopy = new HashSet<LifeForm>(point.getLifeForms());
       for (LifeForm lifeForm : lifeFormsCopy) {
@@ -208,7 +208,7 @@ long lastTime = startTime;
     for (FutureTask<String> future : futureTasks) {
       try {
         String result = future.get();
-        log.trace("FutureTask complted with result: "+result);
+        //log.trace("FutureTask complted with result: "+result);
       } catch (Exception e) {
         log.error("Error",e);
         throw new RuntimeException("Predator ticking failed!");
@@ -219,7 +219,7 @@ long lastTime = startTime;
   private long reportTime(long startTime, String string) {
     long currentTime = System.currentTimeMillis();
     
-    log.debug(string+": "+(currentTime-startTime)+" ms");
+    log.trace(string+": "+(currentTime-startTime)+" ms");
     
     return currentTime;
   }

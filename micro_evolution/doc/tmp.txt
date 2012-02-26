@@ -1,3 +1,11 @@
 no paralel: 19.657 seconds
 
 paralel ticking for predators and lifeforms 19.476 seconds
+
+
+
+parallel 1 = Run took: 75.332 seconds
+parallel 2 = Run took: 53.763 seconds
+parallel 3 = Run took: 51.096 seconds
+parallel 4 = Run took: 62.753 seconds
+
