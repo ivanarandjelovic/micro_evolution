@@ -6,11 +6,12 @@ import java.util.List;
 import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.brains.actions.EatAction;
 import org.aivan.microevolution.brains.actions.MoveAction;
+import org.aivan.microevolution.brains.factories.BrainFactory;
 import org.apache.log4j.Logger;
 
 /**
  * Not really smart brain, should behave predictable, mostly intended for
- * testing.
+ * testing. Ignores any input, produces random output:
  * 
  * 33% eating, 33% moving, 33% doing nothing
  * 
@@ -19,10 +20,17 @@ import org.apache.log4j.Logger;
  */
 public class DummyBrain extends Brain {
 
+
   static final Logger log = Logger.getLogger(DummyBrain.class);
+
 
   @SuppressWarnings("unused")
   private long tickCounter = 0;
+
+  
+  public DummyBrain(BrainFactory brainFactory) {
+    super(brainFactory);
+  }
 
   @Override
   public void tick() {
@@ -72,14 +80,7 @@ public class DummyBrain extends Brain {
 
   @Override
   public void hunger(double signalStrength) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public Brain combineWith(Brain brain) {
-    // Dummy brains are all the same
-    return new DummyBrain();
+    // dummy brain ignores inputs
   }
 
 }
