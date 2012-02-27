@@ -1,8 +1,8 @@
 Short term: 
 
 - implement reproduction
-- implement brain1 brain
-- implement 2D brain
+- implement brain1D brain
+- implement brain2D brain
 
 Long term:
 
