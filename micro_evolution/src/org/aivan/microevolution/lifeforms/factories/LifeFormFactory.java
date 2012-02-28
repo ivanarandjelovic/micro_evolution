@@ -1,5 +1,6 @@
 package org.aivan.microevolution.lifeforms.factories;
 
+import org.aivan.microevolution.brains.factories.BrainFactory;
 import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
@@ -11,6 +12,8 @@ public abstract class LifeFormFactory {
 
   World world = null;
 
+  protected BrainFactory brainFactory;
+
   public void setWorld(World world) {
     //log.trace("World set: " + world);
     this.world = world;
@@ -20,5 +23,9 @@ public abstract class LifeFormFactory {
 
   synchronized public long getNextLifeFormCounter() {
     return lifeFormCounter++;
+  }
+
+  public void setBrainFactory(BrainFactory brainFactory) {
+    this.brainFactory = brainFactory;
   }
 }

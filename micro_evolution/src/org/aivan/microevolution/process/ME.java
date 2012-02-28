@@ -24,7 +24,7 @@ public class ME {
     world.init();
   }
 
-  public void runWorld(long ticks, long reportOnTicks, long generalReportOnTicks) throws InterruptedException {
+  public void runWorld(long ticks, long reportOnTicks) throws InterruptedException {
     log.info("Report at START: ");
     log.info("================ ");
     log.info("\n" + this.getGeneralReport());
@@ -35,7 +35,7 @@ public class ME {
         log.debug("Tick: " + i + " ticking ...");
       }
       world.tick();
-      if (generalReportOnTicks > 0 && i % generalReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
+      if (reportOnTicks > 0 && i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
         log.info(getGeneralReport());
       }
 
@@ -44,11 +44,11 @@ public class ME {
         break;
       }
 
-      if (reportOnTicks > 0 && i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
-        log.info("Report during evolution on each " + reportOnTicks + " ticks: ");
-        log.info("================ ");
-        log.info("\n" + this.getReport());
-      }
+//      if (bigReportOnTicks > 0 && i % bigReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
+//        log.info("Report during evolution on each " + bigReportOnTicks + " ticks: ");
+//        log.info("================ ");
+//        log.info("\n" + this.getReport());
+//      }
 
     }
 

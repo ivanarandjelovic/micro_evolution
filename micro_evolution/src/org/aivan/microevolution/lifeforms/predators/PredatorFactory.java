@@ -10,6 +10,10 @@ public abstract class PredatorFactory implements Tickable {
   
   World world = null;
   
+  public void setWorld(World world) {
+    this.world = world;
+  }
+
   private static long predatorCounter = 0;
   
   public PredatorFactory(World world) {

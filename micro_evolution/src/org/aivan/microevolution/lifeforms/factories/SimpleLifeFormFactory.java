@@ -20,14 +20,16 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
 
   private int formCount = 0;
   
-  private BrainFactory brainFactory;
+  public SimpleLifeFormFactory() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-  
+
   public SimpleLifeFormFactory(BrainFactory brainFactory) {
     super();
     this.brainFactory = brainFactory;
   }
-
 
   @Override
   public void init() {
