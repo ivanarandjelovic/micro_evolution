@@ -165,7 +165,7 @@ public class LifeForm implements Tickable {
   public LifeForm reproduceWith(LifeForm pairForm) {
     Brain newBrain = brain.combineWith(pairForm.getBrain());
     LifeForm newLifeForm = new LifeForm(lifeFormFactory, lifeFormFactory.getNextLifeFormCounter(), newBrain,
-        reproductionPowerCost * 2, maxAge, minimumReproductionPowerLevel, reproductionPowerCost);
+        (long) (reproductionPowerCost * 1.5) , maxAge, minimumReproductionPowerLevel, reproductionPowerCost);
     
     reproductionDone();
     pairForm.reproductionDone();

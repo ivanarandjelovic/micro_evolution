@@ -15,8 +15,8 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
   public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 20.0;
   public static final long INITIAL_POWER_LEVEL = 50;
   public static final long MAX_LIFEFORM_AGE = 2500;
-  public static final long MINIMUM_REPRODUCTION_POWER_LEVEL = 30;
-  public static final long REPRODUCTION_POWER_COST = 10;
+  public static final long MINIMUM_REPRODUCTION_POWER_LEVEL = INITIAL_POWER_LEVEL+1;
+  public static final long REPRODUCTION_POWER_COST = 30;
 
   private int formCount = 0;
   
