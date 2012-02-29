@@ -2,7 +2,6 @@ package org.aivan.microevolution.lifeforms.factories;
 
 import java.util.List;
 
-import org.aivan.microevolution.brains.DummyBrain;
 import org.aivan.microevolution.brains.factories.BrainFactory;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.points.Point;
@@ -15,8 +14,8 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
   public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 20.0;
   public static final long INITIAL_POWER_LEVEL = 50;
   public static final long MAX_LIFEFORM_AGE = 2500;
-  public static final long MINIMUM_REPRODUCTION_POWER_LEVEL = INITIAL_POWER_LEVEL+1;
-  public static final long REPRODUCTION_POWER_COST = 30;
+  public static final long MINIMUM_REPRODUCTION_POWER_LEVEL = INITIAL_POWER_LEVEL * 3 ;
+  public static final long REPRODUCTION_POWER_COST = INITIAL_POWER_LEVEL ;
 
   private int formCount = 0;
   
