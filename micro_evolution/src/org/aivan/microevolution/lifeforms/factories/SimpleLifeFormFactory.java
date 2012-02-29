@@ -21,7 +21,6 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
   
   public SimpleLifeFormFactory() {
     super();
-    // TODO Auto-generated constructor stub
   }
 
 
