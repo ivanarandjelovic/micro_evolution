@@ -10,22 +10,27 @@ public abstract class NeuronConnected implements Neuron {
   static final Logger log = Logger.getLogger(NeuronConnected.class);
 
   List<NeuronConnection> neuronConnections = new ArrayList<NeuronConnection>();
+  double connectionBiasSummary = 0.0;
 
   public NeuronConnected() {
     super();
   }
 
-  public List<NeuronConnection> getNeuronConnections() {
+  public final List<NeuronConnection> getNeuronConnections() {
     return neuronConnections;
   }
 
-  public void setNeuronConnections(List<NeuronConnection> neuronConnections) {
-    this.neuronConnections = neuronConnections;
+  public void addNeuronConnection(NeuronConnection neuronConnection) {
+    this.neuronConnections.add(neuronConnection);
+    connectionBiasSummary += neuronConnection.getConnectionBias();
   }
-  
+
   @Override
   public void signal(double signal) {
-    // TODO
+    for(NeuronConnection connection : neuronConnections) {
+      Double signalToPass = signal * (connection.getConnectionBias() / connectionBiasSummary);
+      connection.signal(signalToPass);
+    }
   }
 
 }

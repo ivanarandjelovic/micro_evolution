@@ -4,8 +4,9 @@ public class NeuronConnection {
 
   // Target of this connection
   Neuron targetNeuron;
-  
-  // How much of the signal gets this connection (relativ to the bias of other connections)
+
+  // How much of the signal gets this connection (relativ to the bias of other
+  // connections)
   double connectionBias;
 
   // How much to make signal weaker (singal will be multiplied by this number)
@@ -27,16 +28,16 @@ public class NeuronConnection {
     return targetNeuron;
   }
 
-  public void setTargetNeuron(Neuron targetNeuron) {
-    this.targetNeuron = targetNeuron;
-  }
-
-  public double getSignalStrength() {
-    return signalModifier;
-  }
-
   public void setSignalStrength(long signalStrength) {
     this.signalModifier = signalStrength;
+  }
+
+  public double getConnectionBias() {
+    return connectionBias;
+  }
+
+  public double getSignalModifier() {
+    return signalModifier;
   }
 
   void signal(double signal) {
