@@ -1,22 +1,26 @@
 package org.aivan.microevolution.brains.neurons;
 
 public class NeuronConnection {
-  
+
   // Target of this connection
   Neuron targetNeuron;
   
-  // How much to make signal weaker (singal will be multiplied by this number)
-  long signalStrength = 1;
-
   // How much of the signal gets this connection (relativ to the bias of other connections)
-  long connectionBias;
+  double connectionBias;
 
-  
-  public NeuronConnection(Neuron targetNeuron, long signalStrength, long connectionBias) {
+  // How much to make signal weaker (singal will be multiplied by this number)
+  // The value can be from -1 to 1 where meaning is following:
+  // -1 send (1- "signal strength"),
+  // -0.x send 0.x * (1 - "signal strength")
+  // 0 - do not 'send anything"
+  // 0.x send 0.x * "signal strength"
+  // 1 send "signal strength"
+  double signalModifier = 1;
+
+  public NeuronConnection(Neuron targetNeuron, double signalModifier, double connectionBias) {
     super();
     this.targetNeuron = targetNeuron;
-    this.signalStrength = signalStrength;
-    this.connectionBias = connectionBias;
+    this.signalModifier = signalModifier;
   }
 
   public Neuron getTargetNeuron() {
@@ -27,21 +31,23 @@ public class NeuronConnection {
     this.targetNeuron = targetNeuron;
   }
 
-  public long getSignalStrength() {
-    return signalStrength;
+  public double getSignalStrength() {
+    return signalModifier;
   }
 
   public void setSignalStrength(long signalStrength) {
-    this.signalStrength = signalStrength;
+    this.signalModifier = signalStrength;
   }
 
-  public long getConnectionBias() {
-    return connectionBias;
-  }
+  void signal(double signal) {
+    double resultSignal;
+    assert ((signal >= 0) && (signal <= 1));
 
-  public void setConnectionBias(long connectionBias) {
-    this.connectionBias = connectionBias;
+    if (signalModifier >= 0) {
+      resultSignal = signalModifier * signal;
+    } else {
+      resultSignal = Math.abs(signalModifier * (1.0 - signal));
+    }
+    targetNeuron.signal(resultSignal);
   }
-  
-  
 }
