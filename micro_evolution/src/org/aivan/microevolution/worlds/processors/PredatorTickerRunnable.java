@@ -2,7 +2,7 @@ package org.aivan.microevolution.worlds.processors;
 
 import java.util.List;
 
-import org.aivan.microevolution.lifeforms.predators.Predator;
+import org.aivan.microevolution.predators.Predator;
 
 public class PredatorTickerRunnable extends SegmentProcessorRunnable {
 

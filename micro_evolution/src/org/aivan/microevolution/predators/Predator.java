@@ -1,4 +1,4 @@
-package org.aivan.microevolution.lifeforms.predators;
+package org.aivan.microevolution.predators;
 
 import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.lifeforms.LifeForm;

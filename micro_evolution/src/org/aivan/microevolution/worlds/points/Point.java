@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.lifeforms.LifeForm;
-import org.aivan.microevolution.lifeforms.predators.Predator;
+import org.aivan.microevolution.predators.Predator;
 import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
