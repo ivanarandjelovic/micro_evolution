@@ -1,6 +1,5 @@
-package org.aivan.microevolution.brains.factories;
+package org.aivan.microevolution.brains;
 
-import org.aivan.microevolution.brains.Brain;
 
 public interface BrainFactory {
 

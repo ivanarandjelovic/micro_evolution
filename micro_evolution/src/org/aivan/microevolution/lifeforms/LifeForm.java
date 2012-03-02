@@ -2,11 +2,10 @@ package org.aivan.microevolution.lifeforms;
 
 import java.util.List;
 
+import org.aivan.microevolution.actions.Action;
 import org.aivan.microevolution.brains.Brain;
-import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.general.Tickable;
-import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 

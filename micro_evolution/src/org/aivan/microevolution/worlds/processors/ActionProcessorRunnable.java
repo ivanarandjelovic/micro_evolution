@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.aivan.microevolution.brains.actions.Action;
-import org.aivan.microevolution.brains.actions.EatAction;
-import org.aivan.microevolution.brains.actions.MoveAction;
+import org.aivan.microevolution.actions.Action;
+import org.aivan.microevolution.actions.EatAction;
+import org.aivan.microevolution.actions.MoveAction;
 import org.aivan.microevolution.lifeforms.LifeForm;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;

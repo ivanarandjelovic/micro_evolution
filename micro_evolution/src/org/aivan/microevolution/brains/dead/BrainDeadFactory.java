@@ -1,7 +1,7 @@
-package org.aivan.microevolution.brains.factories;
+package org.aivan.microevolution.brains.dead;
 
 import org.aivan.microevolution.brains.Brain;
-import org.aivan.microevolution.brains.BrainDead;
+import org.aivan.microevolution.brains.BrainFactory;
 
 public class BrainDeadFactory implements BrainFactory {
 

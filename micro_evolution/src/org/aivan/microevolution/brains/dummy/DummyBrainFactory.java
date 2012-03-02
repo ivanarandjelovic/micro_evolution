@@ -1,7 +1,7 @@
-package org.aivan.microevolution.brains.factories;
+package org.aivan.microevolution.brains.dummy;
 
 import org.aivan.microevolution.brains.Brain;
-import org.aivan.microevolution.brains.DummyBrain;
+import org.aivan.microevolution.brains.BrainFactory;
 
 public class DummyBrainFactory implements BrainFactory {
 

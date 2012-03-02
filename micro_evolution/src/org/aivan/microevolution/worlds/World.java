@@ -12,7 +12,7 @@ import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.food.FoodFactory;
 import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.lifeforms.LifeForm;
-import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
+import org.aivan.microevolution.lifeforms.LifeFormFactory;
 import org.aivan.microevolution.predators.Predator;
 import org.aivan.microevolution.predators.PredatorFactory;
 import org.aivan.microevolution.worlds.points.Point;

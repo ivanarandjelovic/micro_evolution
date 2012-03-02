@@ -1,9 +1,9 @@
-package org.aivan.microevolution.brains.factories;
+package org.aivan.microevolution.brains.brain1d;
 
 import java.util.Random;
 
 import org.aivan.microevolution.brains.Brain;
-import org.aivan.microevolution.brains.Brain1D;
+import org.aivan.microevolution.brains.BrainFactory;
 import org.aivan.microevolution.brains.neurons.Neuron;
 import org.aivan.microevolution.brains.neurons.NeuronConnected;
 import org.aivan.microevolution.brains.neurons.NeuronConnection;

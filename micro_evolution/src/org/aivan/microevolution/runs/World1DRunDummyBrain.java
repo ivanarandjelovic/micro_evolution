@@ -1,6 +1,6 @@
 package org.aivan.microevolution.runs;
 
-import org.aivan.microevolution.brains.factories.DummyBrainFactory;
+import org.aivan.microevolution.brains.dummy.DummyBrainFactory;
 import org.apache.log4j.Logger;
 
 public class World1DRunDummyBrain extends WorldRun {

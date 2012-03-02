@@ -2,8 +2,7 @@ package org.aivan.microevolution.brains;
 
 import java.util.List;
 
-import org.aivan.microevolution.brains.actions.Action;
-import org.aivan.microevolution.brains.factories.BrainFactory;
+import org.aivan.microevolution.actions.Action;
 import org.aivan.microevolution.general.Tickable;
 import org.apache.log4j.Logger;
 

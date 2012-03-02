@@ -1,7 +1,7 @@
 package org.aivan.microevolution.runs;
 
 import org.aivan.microevolution.food.ConstantFoodFactory;
-import org.aivan.microevolution.lifeforms.factories.SimpleLifeFormFactory;
+import org.aivan.microevolution.lifeforms.SimpleLifeFormFactory;
 import org.aivan.microevolution.predators.ConstantPredatorFactory;
 import org.apache.log4j.Logger;
 

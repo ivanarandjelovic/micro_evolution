@@ -1,6 +1,6 @@
-package org.aivan.microevolution.lifeforms.factories;
+package org.aivan.microevolution.lifeforms;
 
-import org.aivan.microevolution.brains.factories.BrainFactory;
+import org.aivan.microevolution.brains.BrainFactory;
 import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 

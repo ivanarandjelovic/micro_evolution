@@ -1,6 +1,6 @@
 package org.aivan.microevolution.runs;
 
-import org.aivan.microevolution.brains.factories.BrainDeadFactory;
+import org.aivan.microevolution.brains.dead.BrainDeadFactory;
 import org.apache.log4j.Logger;
 
 public class World1DRunBrainDead  extends WorldRun {

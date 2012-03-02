@@ -1,4 +1,4 @@
-package org.aivan.microevolution.brains.actions;
+package org.aivan.microevolution.actions;
 
 import org.apache.log4j.Logger;
 

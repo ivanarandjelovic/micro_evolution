@@ -1,12 +1,13 @@
-package org.aivan.microevolution.brains;
+package org.aivan.microevolution.brains.dummy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aivan.microevolution.brains.actions.Action;
-import org.aivan.microevolution.brains.actions.EatAction;
-import org.aivan.microevolution.brains.actions.MoveAction;
-import org.aivan.microevolution.brains.factories.BrainFactory;
+import org.aivan.microevolution.actions.Action;
+import org.aivan.microevolution.actions.EatAction;
+import org.aivan.microevolution.actions.MoveAction;
+import org.aivan.microevolution.brains.Brain;
+import org.aivan.microevolution.brains.BrainFactory;
 import org.apache.log4j.Logger;
 
 /**

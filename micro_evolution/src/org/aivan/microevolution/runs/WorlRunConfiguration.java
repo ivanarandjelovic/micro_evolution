@@ -1,8 +1,8 @@
 package org.aivan.microevolution.runs;
 
-import org.aivan.microevolution.brains.factories.BrainFactory;
+import org.aivan.microevolution.brains.BrainFactory;
 import org.aivan.microevolution.food.FoodFactory;
-import org.aivan.microevolution.lifeforms.factories.LifeFormFactory;
+import org.aivan.microevolution.lifeforms.LifeFormFactory;
 import org.aivan.microevolution.predators.PredatorFactory;
 
 public class WorlRunConfiguration {

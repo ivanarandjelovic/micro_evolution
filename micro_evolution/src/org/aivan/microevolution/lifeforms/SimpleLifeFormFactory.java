@@ -1,9 +1,8 @@
-package org.aivan.microevolution.lifeforms.factories;
+package org.aivan.microevolution.lifeforms;
 
 import java.util.List;
 
-import org.aivan.microevolution.brains.factories.BrainFactory;
-import org.aivan.microevolution.lifeforms.LifeForm;
+import org.aivan.microevolution.brains.BrainFactory;
 import org.aivan.microevolution.worlds.points.Point;
 import org.apache.log4j.Logger;
 
