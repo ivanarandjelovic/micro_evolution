@@ -70,7 +70,6 @@ public class LifeForm implements Tickable {
   }
 
   public void eat(Food food) {
-    // TODO Auto-generated method stub
     eatenFoodCount++;
     powerLevel += food.getPowerLevel();
   }

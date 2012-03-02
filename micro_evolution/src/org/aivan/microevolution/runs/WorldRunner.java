@@ -29,7 +29,6 @@ public abstract class WorldRunner {
     try {
       me.runWorld(configuration.getTicksToRun(), configuration.getReportOnTicks());
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
