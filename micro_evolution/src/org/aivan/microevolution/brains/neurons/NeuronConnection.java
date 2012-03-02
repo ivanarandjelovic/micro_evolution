@@ -1,47 +1,54 @@
 package org.aivan.microevolution.brains.neurons;
 
 public class NeuronConnection {
-  
+
   // Target of this connection
   Neuron targetNeuron;
-  
+
+  // How much of the signal gets this connection (relativ to the bias of other
+  // connections)
+  double connectionBias;
+
   // How much to make signal weaker (singal will be multiplied by this number)
-  long signalStrength = 1;
+  // The value can be from -1 to 1 where meaning is following:
+  // -1 send (1- "signal strength"),
+  // -0.x send 0.x * (1 - "signal strength")
+  // 0 - do not 'send anything"
+  // 0.x send 0.x * "signal strength"
+  // 1 send "signal strength"
+  double signalModifier = 1;
 
-  // How much of the signal gets this connection (relativ to the bias of other connections)
-  long connectionBias;
-
-  
-  public NeuronConnection(Neuron targetNeuron, long signalStrength, long connectionBias) {
+  public NeuronConnection(Neuron targetNeuron, double signalModifier, double connectionBias) {
     super();
     this.targetNeuron = targetNeuron;
-    this.signalStrength = signalStrength;
-    this.connectionBias = connectionBias;
+    this.signalModifier = signalModifier;
   }
 
   public Neuron getTargetNeuron() {
     return targetNeuron;
   }
 
-  public void setTargetNeuron(Neuron targetNeuron) {
-    this.targetNeuron = targetNeuron;
-  }
-
-  public long getSignalStrength() {
-    return signalStrength;
-  }
-
   public void setSignalStrength(long signalStrength) {
-    this.signalStrength = signalStrength;
+    this.signalModifier = signalStrength;
   }
 
-  public long getConnectionBias() {
+  public double getConnectionBias() {
     return connectionBias;
   }
 
-  public void setConnectionBias(long connectionBias) {
-    this.connectionBias = connectionBias;
+  public double getSignalModifier() {
+    return signalModifier;
   }
-  
-  
+
+  void signal(double signal) {
+    double resultSignal;
+    assert ((signal >= 0) && (signal <= 1));
+
+    if (signalModifier >= 0) {
+      resultSignal = signalModifier * signal;
+    } else {
+      resultSignal = Math.abs(signalModifier * (1.0 - signal));
+    }
+    targetNeuron.signal(resultSignal);
+  }
 }
