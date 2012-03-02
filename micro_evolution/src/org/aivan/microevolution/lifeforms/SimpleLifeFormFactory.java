@@ -10,7 +10,7 @@ public class SimpleLifeFormFactory extends LifeFormFactory {
 
   static final Logger log = Logger.getLogger(SimpleLifeFormFactory.class);
 
-  public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 20.0;
+  public static final double LIFE_FORM_PERCENTAGE_IN_POINTS = 30.0;
   public static final long INITIAL_POWER_LEVEL = 50;
   public static final long MAX_LIFEFORM_AGE = 2500;
   public static final long MINIMUM_REPRODUCTION_POWER_LEVEL = INITIAL_POWER_LEVEL * 3 ;

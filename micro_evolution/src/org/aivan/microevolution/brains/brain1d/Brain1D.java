@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 public class Brain1D extends Brain {
 
-  private static final double MINIMAL_ACTION_POWER_LEVEL_TRASHOLD = 0.1;
+  private static final double MINIMAL_ACTION_POWER_LEVEL_TRASHOLD = 0.3;
 
   List<NeuronConnected> entryNeurons = new ArrayList<NeuronConnected>();
 
