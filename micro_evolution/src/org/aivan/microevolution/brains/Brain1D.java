@@ -7,7 +7,7 @@ import org.aivan.microevolution.brains.actions.Action;
 import org.aivan.microevolution.brains.actions.EatAction;
 import org.aivan.microevolution.brains.actions.MoveAction;
 import org.aivan.microevolution.brains.factories.BrainFactory;
-import org.aivan.microevolution.brains.neurons.Neuron;
+import org.aivan.microevolution.brains.neurons.NeuronConnected;
 import org.aivan.microevolution.brains.neurons.NeuronTerminating;
 import org.apache.log4j.Logger;
 
@@ -15,13 +15,23 @@ public class Brain1D extends Brain {
 
   private static final double MINIMAL_ACTION_POWER_LEVEL_TRASHOLD = 0.1;
 
-  List<Neuron> entryNeurons = new ArrayList<Neuron>();
+  List<NeuronConnected> entryNeurons = new ArrayList<NeuronConnected>();
 
   List<NeuronTerminating> terminatingNeurons = new ArrayList<NeuronTerminating>();
 
   public Brain1D(BrainFactory brainFactory) {
     super(brainFactory);
   }
+
+  
+  public List<NeuronConnected> getEntryNeurons() {
+    return entryNeurons;
+  }
+
+  public List<NeuronTerminating> getTerminatingNeurons() {
+    return terminatingNeurons;
+  }
+
 
   static final Logger log = Logger.getLogger(Brain1D.class);
 
@@ -108,7 +118,7 @@ public class Brain1D extends Brain {
     double percent = (entryNeurons.size() / 100.0);
     int start = (int) Math.round(Math.floor(percentageStart * percent));
     int end = (int) Math.round(Math.floor(percentageEnd * percent));
-    for (int i = start; i < end; i++) {
+    for (int i = start; i <= end; i++) {
       entryNeurons.get(i).signal(signalStrength);
     }
   }
@@ -118,8 +128,9 @@ public class Brain1D extends Brain {
     double percent = (terminatingNeurons.size() / 100.0);
     int start = (int) Math.round(Math.floor(percentageStart * percent));
     int end = (int) Math.round(Math.floor(percentageEnd * percent));
-    for (int i = start; i < end; i++) {
+    for (int i = start; i <= end; i++) {
       result += terminatingNeurons.get(i).getReceivedSignal();
+      terminatingNeurons.get(i).reset();
     }
     return result;
   }

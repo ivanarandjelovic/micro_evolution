@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public abstract class NeuronConnected implements Neuron {
+public class NeuronConnected implements Neuron {
 
   static final Logger log = Logger.getLogger(NeuronConnected.class);
 
@@ -16,7 +16,7 @@ public abstract class NeuronConnected implements Neuron {
     super();
   }
 
-  public final List<NeuronConnection> getNeuronConnections() {
+  public List<NeuronConnection> getNeuronConnections() {
     return neuronConnections;
   }
 

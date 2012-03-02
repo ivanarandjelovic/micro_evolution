@@ -22,6 +22,7 @@ public class NeuronConnection {
     super();
     this.targetNeuron = targetNeuron;
     this.signalModifier = signalModifier;
+    this.connectionBias = connectionBias;
   }
 
   public Neuron getTargetNeuron() {
