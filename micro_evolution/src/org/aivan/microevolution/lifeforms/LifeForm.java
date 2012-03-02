@@ -48,6 +48,7 @@ public class LifeForm implements Tickable {
     this.lifeFormFactory = lifeFormFactory;
   }
 
+  
   @Override
   public String toString() {
     return this.getClass().getSimpleName() + "/" + id;
@@ -171,7 +172,7 @@ public class LifeForm implements Tickable {
     return newLifeForm;
   }
 
-  private Brain getBrain() {
+  public Brain getBrain() {
     return brain;
   }
 

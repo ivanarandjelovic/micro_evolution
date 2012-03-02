@@ -32,7 +32,7 @@ public class ME {
     log.debug("Ticking world for: " + ticks + " ticks ...");
     for (long i = 0; i < ticks; i++) {
       if (i % 10 == 0) {
-        log.debug("Tick: " + i + " ticking ...");
+        log.debug("Ticking: " + i + " ticking ...");
       }
       world.tick();
       if (reportOnTicks > 0 && i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
@@ -110,6 +110,7 @@ public class ME {
     report += "\nWorld's food count: " + world.getFood().size();
     report += "\nWorld's predator count: " + world.getPredators().size();
     report += "\nWorld's deadLifeForm count: " + world.getDeadLifeForms().size();
+    report += "\nBrain report:\n"+world.getBrainReport();
     return report;
   }
 }

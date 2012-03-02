@@ -12,7 +12,7 @@ public abstract class WorldRun {
   protected static final long WORLD_POINT_COUNT = 10000;
   protected static final long TICKS_TO_RUN = 50000;
   protected static final long REPORT_ON_TICKS = 500;
-
+  
   protected WorlRunConfiguration worldRunConfiguration = new WorlRunConfiguration();
 
   

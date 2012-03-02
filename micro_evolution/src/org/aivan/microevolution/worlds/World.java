@@ -8,6 +8,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.aivan.microevolution.brains.BrainReport;
 import org.aivan.microevolution.food.Food;
 import org.aivan.microevolution.food.FoodFactory;
 import org.aivan.microevolution.general.Tickable;
@@ -391,6 +392,16 @@ long lastTime = startTime;
     }
 
     return result;
+  }
+  
+  public String getBrainReport() {
+    BrainReport brainReport = lifeFormFactory.getBrainFactory().createNewBrainReport();
+    
+    for(LifeForm lifeForm : lifeForms) {
+      brainReport.visit(lifeForm.getBrain());
+    }
+
+    return brainReport.getReport();
   }
 
   public List<LifeForm> getDeadLifeForms() {

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.aivan.microevolution.brains.Brain;
 import org.aivan.microevolution.brains.BrainFactory;
+import org.aivan.microevolution.brains.BrainReport;
 import org.aivan.microevolution.brains.neurons.Neuron;
 import org.aivan.microevolution.brains.neurons.NeuronConnected;
 import org.aivan.microevolution.brains.neurons.NeuronConnection;
@@ -14,8 +15,8 @@ public class Brain1DFactory implements BrainFactory {
 
   private static final double MIN_SIGNAL_MODIFIER = -1.0;
   private static final double MAX_SIGNAL_MODIFIER = 1.0;
-  private static final int NUMBER_OF_TERMINATING_NEURONS = 2;
-  private static final int NUMBER_OF_ENTRY_NEURONS = 4;
+  public static final int NUMBER_OF_TERMINATING_NEURONS = 2;
+  public static final int NUMBER_OF_ENTRY_NEURONS = 4;
 
   private Random random = new Random();
 
@@ -79,6 +80,11 @@ public class Brain1DFactory implements BrainFactory {
     }
 
     return brain;
+  }
+
+  @Override
+  public BrainReport createNewBrainReport() {
+    return new Brain1DReport();
   }
 
 }

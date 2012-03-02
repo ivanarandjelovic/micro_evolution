@@ -28,4 +28,10 @@ public abstract class LifeFormFactory {
   public void setBrainFactory(BrainFactory brainFactory) {
     this.brainFactory = brainFactory;
   }
+
+  public BrainFactory getBrainFactory() {
+    return brainFactory;
+  }
+  
+  
 }
