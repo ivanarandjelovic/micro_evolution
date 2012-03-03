@@ -11,7 +11,6 @@ import org.apache.commons.math.stat.descriptive.SummaryStatistics;
 
 public class Brain1DReport implements BrainReport {
 
-  SummaryStatistics[][] biases = new SummaryStatistics[Brain1DFactory.NUMBER_OF_ENTRY_NEURONS][Brain1DFactory.NUMBER_OF_TERMINATING_NEURONS];
   SummaryStatistics[][] modifiers = new SummaryStatistics[Brain1DFactory.NUMBER_OF_ENTRY_NEURONS][Brain1DFactory.NUMBER_OF_TERMINATING_NEURONS];
 
   {
@@ -22,9 +21,8 @@ public class Brain1DReport implements BrainReport {
 
   public Brain1DReport() {
     super();
-    for (int i = 0; i < biases.length; i++) {
-      for (int j = 0; j < biases[i].length; j++) {
-        biases[i][j] = new SummaryStatistics();
+    for (int i = 0; i < modifiers.length; i++) {
+      for (int j = 0; j < modifiers[i].length; j++) {
         modifiers[i][j] = new SummaryStatistics();
       }
     }
@@ -37,7 +35,6 @@ public class Brain1DReport implements BrainReport {
       NeuronConnected entryNeuron = brain1d.getEntryNeurons().get(entryCount);
       for (int connCount = 0; connCount < entryNeuron.getNeuronConnections().size(); connCount++) {
         NeuronConnection conn = entryNeuron.getNeuronConnections().get(connCount);
-        biases[entryCount][connCount].addValue(conn.getConnectionBias());
         modifiers[entryCount][connCount].addValue(conn.getSignalModifier());
       }
     }
@@ -52,9 +49,9 @@ public class Brain1DReport implements BrainReport {
 
     // TODO: fix this to work with more terminating neurons
 
-    String format = "%1$20s %2$25s %3$25s\n";
+    String format = "%1$20s %2$13s %3$13s \n";
     fmt.format(format, "Entry neuron", "Move neuron", "Eat target");
-    for (int i = 0; i < biases.length; i++) {
+    for (int i = 0; i < modifiers.length; i++) {
       String entryName = "unknown";
       if (i == 0) {
         entryName = "food";
@@ -65,15 +62,14 @@ public class Brain1DReport implements BrainReport {
       } else if (i == 3) {
         entryName = "hunger";
       }
-      fmt.format(format, entryName, df.format(biases[i][0].getMean()) + "/" + df.format(modifiers[i][0].getMean()),
-          df.format(biases[i][1].getMean()) + "/" + df.format(modifiers[i][1].getMean()));
+      fmt.format(format, entryName, df.format(modifiers[i][0].getMean()), df.format(modifiers[i][1].getMean()));
     }
     report += fmt.toString();
 
     fmt = new Formatter();
     report += " Deviations (bias / modified): \n";
-    fmt.format(format, "Entry neuron", "Move neuron", "Eat target");
-    for (int i = 0; i < biases.length; i++) {
+    fmt.format(format, "Entry neuron", "Move target", "Eat target");
+    for (int i = 0; i < modifiers.length; i++) {
       String entryName = "unknown";
       if (i == 0) {
         entryName = "food";
@@ -84,9 +80,8 @@ public class Brain1DReport implements BrainReport {
       } else if (i == 3) {
         entryName = "hunger";
       }
-      fmt.format(format, entryName,
-          df.format(biases[i][0].getStandardDeviation()) + "/" + df.format(modifiers[i][0].getStandardDeviation()),
-          df.format(biases[i][1].getStandardDeviation()) + "/" + df.format(modifiers[i][1].getStandardDeviation()));
+      fmt.format(format, entryName, df.format(modifiers[i][0].getStandardDeviation()),
+          df.format(modifiers[i][1].getStandardDeviation()));
     }
     report += fmt.toString();
 

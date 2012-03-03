@@ -17,7 +17,7 @@ public class NuronConnectionTest {
       System.out.println("\nResults for signal: " + signal);
       for (int i = -10; i <= 10; i++) {
         double modifier = i * 0.1;
-        NeuronConnection connection = new NeuronConnection(new NeuronTerminating(), modifier, 1);
+        NeuronConnection connection = new NeuronConnection(new NeuronTerminating(), modifier);
         connection.signal(signal);
         System.out.println("modifier: " + df.format(modifier) + " result: "
             + df.format(((NeuronTerminating) connection.getTargetNeuron()).getReceivedSignal()));

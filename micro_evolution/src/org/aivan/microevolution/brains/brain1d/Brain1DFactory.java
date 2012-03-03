@@ -35,7 +35,7 @@ public class Brain1DFactory implements BrainFactory {
       NeuronConnected entryNeuron = new NeuronConnected();
       for (Neuron neuron : brain.getTerminatingNeurons()) {
         NeuronConnection neuronConnection = new NeuronConnection(neuron, RandUtil.toRange(random.nextDouble(), MIN_SIGNAL_MODIFIER,
-            MAX_SIGNAL_MODIFIER), random.nextDouble());
+            MAX_SIGNAL_MODIFIER));
         entryNeuron.addNeuronConnection(neuronConnection);
       }
       brain.getEntryNeurons().add(entryNeuron);
@@ -69,10 +69,9 @@ public class Brain1DFactory implements BrainFactory {
         NeuronConnection neuronCon1 = parent1Neuron.getNeuronConnections().get(terminatingCount);
         NeuronConnection neuronCon2 = parent2Neuron.getNeuronConnections().get(terminatingCount);
         
-        double bias = (neuronCon1.getConnectionBias() + neuronCon2.getConnectionBias()) / 2.0;
         double modifier = (neuronCon1.getSignalModifier() + neuronCon2.getSignalModifier()) / 2.0;
         
-        NeuronConnection neuronConnection = new NeuronConnection(neuron, modifier, bias);
+        NeuronConnection neuronConnection = new NeuronConnection(neuron, modifier);
         
         entryNeuron.addNeuronConnection(neuronConnection);
       }
