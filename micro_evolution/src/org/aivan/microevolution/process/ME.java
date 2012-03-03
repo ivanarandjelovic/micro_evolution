@@ -31,7 +31,7 @@ public class ME {
 
     log.debug("Ticking world for: " + ticks + " ticks ...");
     for (long i = 0; i < ticks; i++) {
-      if (i % 10 == 0) {
+      if (i % 100 == 0) {
         log.debug("Ticking: " + i + " ticking ...");
       }
       world.tick();
