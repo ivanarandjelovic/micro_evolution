@@ -43,7 +43,7 @@ public class Brain1DReport implements BrainReport {
   }
 
   public String getReport() {
-    String report = "Values (bias / modifier):\n";
+    String report = "Values (modifier):\n";
     DecimalFormat df = new DecimalFormat(" 0.0000000000;-0.0000000000");
     Formatter fmt = new Formatter();
 
@@ -67,7 +67,7 @@ public class Brain1DReport implements BrainReport {
     report += fmt.toString();
 
     fmt = new Formatter();
-    report += " Deviations (bias / modified): \n";
+    report += " Deviations (modifier): \n";
     fmt.format(format, "Entry neuron", "Move target", "Eat target");
     for (int i = 0; i < modifiers.length; i++) {
       String entryName = "unknown";

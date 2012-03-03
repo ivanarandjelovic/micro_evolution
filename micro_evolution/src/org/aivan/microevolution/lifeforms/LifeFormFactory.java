@@ -1,10 +1,11 @@
 package org.aivan.microevolution.lifeforms;
 
 import org.aivan.microevolution.brains.BrainFactory;
+import org.aivan.microevolution.general.Tickable;
 import org.aivan.microevolution.worlds.World;
 import org.apache.log4j.Logger;
 
-public abstract class LifeFormFactory {
+public abstract class LifeFormFactory implements Tickable {
 
   static final Logger log = Logger.getLogger(LifeFormFactory.class);
 
@@ -19,7 +20,11 @@ public abstract class LifeFormFactory {
     this.world = world;
   }
 
+  /**
+   * Generate initial life forms at the start of the evolution
+   */
   public abstract void init();
+
 
   synchronized public long getNextLifeFormCounter() {
     return lifeFormCounter++;

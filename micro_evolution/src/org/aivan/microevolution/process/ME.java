@@ -44,11 +44,13 @@ public class ME {
         break;
       }
 
-//      if (bigReportOnTicks > 0 && i % bigReportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
-//        log.info("Report during evolution on each " + bigReportOnTicks + " ticks: ");
-//        log.info("================ ");
-//        log.info("\n" + this.getReport());
-//      }
+      // if (bigReportOnTicks > 0 && i % bigReportOnTicks == 0 && i > 0 && i <
+      // (ticks - 1)) {
+      // log.info("Report during evolution on each " + bigReportOnTicks +
+      // " ticks: ");
+      // log.info("================ ");
+      // log.info("\n" + this.getReport());
+      // }
 
     }
 
@@ -61,22 +63,22 @@ public class ME {
     long hungerDeath = 0;
     long ageDeath = 0;
     long unknownReason = 0;
-    for(LifeForm lifeForm : world.getDeadLifeForms()) {
-      if(lifeForm.getDiedFrom() == LifeForm.DeathReason.PREDATOR) {
-        predatorDeath++;
-      } else if (lifeForm.getDiedFrom() == LifeForm.DeathReason.HUNGER){
-        hungerDeath ++;
-      } else if (lifeForm.getDiedFrom() == LifeForm.DeathReason.AGE){
-        ageDeath ++;
-      } else {
-        unknownReason++;
-      }
+    if (world.getDeathCounters().get(LifeForm.DeathReason.PREDATOR) != null) {
+      predatorDeath = world.getDeathCounters().get(LifeForm.DeathReason.PREDATOR).longValue();
     }
-    log.info("Died from predator: "+predatorDeath);
-    log.info("Died from hunger  : "+hungerDeath);
-    log.info("Died from age     : "+ageDeath);
-    log.info("Died from unknown : "+unknownReason);
-    
+    if (world.getDeathCounters().get(LifeForm.DeathReason.HUNGER) != null) {
+      hungerDeath = world.getDeathCounters().get(LifeForm.DeathReason.HUNGER).longValue();
+    }
+    if (world.getDeathCounters().get(LifeForm.DeathReason.AGE) != null) {
+      ageDeath = world.getDeathCounters().get(LifeForm.DeathReason.AGE).longValue();
+    } else {
+      unknownReason++;
+    }
+    log.info("Died from predator: " + predatorDeath);
+    log.info("Died from hunger  : " + hungerDeath);
+    log.info("Died from age     : " + ageDeath);
+    log.info("Died from unknown : " + unknownReason);
+
     world.shutdown();
 
   }
@@ -109,8 +111,8 @@ public class ME {
     report += "\nWorld's lifeForm count: " + world.getLifeForms().size();
     report += "\nWorld's food count: " + world.getFood().size();
     report += "\nWorld's predator count: " + world.getPredators().size();
-    report += "\nWorld's deadLifeForm count: " + world.getDeadLifeForms().size();
-    report += "\nBrain report:\n"+world.getBrainReport();
+    report += "\nWorld's deadLifeForm count: " + world.getDeadLifeFormsCount();
+    report += "\nBrain report:\n" + world.getBrainReport();
     return report;
   }
 }

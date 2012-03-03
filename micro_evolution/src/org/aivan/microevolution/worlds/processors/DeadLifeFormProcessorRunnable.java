@@ -32,7 +32,7 @@ public class DeadLifeFormProcessorRunnable extends SegmentProcessorRunnable {
         if (lifeForm.isDead()) {
           point.lifeFormLeft(lifeForm);
           world.getLifeForms().remove(lifeForm);
-          world.getDeadLifeForms().add(lifeForm);
+          world.increaseDeadLifeFormCount(lifeForm.getDiedFrom());
         }
       }
     }
