@@ -43,6 +43,10 @@ public class Brain1DReport implements BrainReport {
   }
 
   public String getReport() {
+    return getReport(false);
+  }
+
+  private String getReport(boolean simple) {
     String report = "Values (modifier):\n";
     DecimalFormat df = new DecimalFormat(" 0.0000000000;-0.0000000000");
     Formatter fmt = new Formatter();
@@ -65,26 +69,31 @@ public class Brain1DReport implements BrainReport {
       fmt.format(format, entryName, df.format(modifiers[i][0].getMean()), df.format(modifiers[i][1].getMean()));
     }
     report += fmt.toString();
-
-    fmt = new Formatter();
-    report += " Deviations (modifier): \n";
-    fmt.format(format, "Entry neuron", "Move target", "Eat target");
-    for (int i = 0; i < modifiers.length; i++) {
-      String entryName = "unknown";
-      if (i == 0) {
-        entryName = "food";
-      } else if (i == 1) {
-        entryName = "predator";
-      } else if (i == 2) {
-        entryName = "lifeForm";
-      } else if (i == 3) {
-        entryName = "hunger";
+    if (!simple) {
+      fmt = new Formatter();
+      report += " Deviations (modifier): \n";
+      fmt.format(format, "Entry neuron", "Move target", "Eat target");
+      for (int i = 0; i < modifiers.length; i++) {
+        String entryName = "unknown";
+        if (i == 0) {
+          entryName = "food";
+        } else if (i == 1) {
+          entryName = "predator";
+        } else if (i == 2) {
+          entryName = "lifeForm";
+        } else if (i == 3) {
+          entryName = "hunger";
+        }
+        fmt.format(format, entryName, df.format(modifiers[i][0].getStandardDeviation()),
+            df.format(modifiers[i][1].getStandardDeviation()));
       }
-      fmt.format(format, entryName, df.format(modifiers[i][0].getStandardDeviation()),
-          df.format(modifiers[i][1].getStandardDeviation()));
+      report += fmt.toString();
     }
-    report += fmt.toString();
 
     return report;
+  }
+
+  public String getBasicReport() {
+    return getReport(true);
   }
 }

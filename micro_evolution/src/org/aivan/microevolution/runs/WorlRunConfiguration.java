@@ -15,6 +15,7 @@ public class WorlRunConfiguration {
   private long ticksToRun;
   private long reportOnTicks;
   private long repeatRuns = 1;
+  private long brainReportOnTicks = 0;
 
   public long getWorldPointCount() {
     return worldPointCount;
@@ -78,6 +79,14 @@ public class WorlRunConfiguration {
 
   public void setRepeatRuns(long repeatRuns) {
     this.repeatRuns = repeatRuns;
+  }
+
+  public long getBrainReportOnTicks() {
+    return brainReportOnTicks;
+  }
+
+  public void setBrainReportOnTicks(long brainReportOnTicks) {
+    this.brainReportOnTicks = brainReportOnTicks;
   }
 
 }

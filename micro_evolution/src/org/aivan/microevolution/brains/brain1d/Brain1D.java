@@ -136,4 +136,14 @@ public class Brain1D extends Brain {
     return result;
   }
 
+
+  @Override
+  public String toString() {
+    Brain1DReport report = new Brain1DReport();
+    report.visit(this);
+    return report.getBasicReport();
+  }
+  
+  
+
 }

@@ -34,7 +34,7 @@ public abstract class WorldRunner {
       ME me = new ME(world);
 
       try {
-        me.runWorld(configuration.getTicksToRun(), configuration.getReportOnTicks());
+        me.runWorld(configuration.getTicksToRun(), configuration.getReportOnTicks(), configuration.getBrainReportOnTicks());
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

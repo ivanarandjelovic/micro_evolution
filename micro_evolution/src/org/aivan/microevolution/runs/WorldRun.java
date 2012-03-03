@@ -13,6 +13,8 @@ public abstract class WorldRun {
   protected static final long TICKS_TO_RUN = 500000;
   protected static final long REPORT_ON_TICKS = 500;
   protected static final long REPEAT_RUNS = 1;
+  protected static final long BRAIN_REPORT_ON_TICKS = 0;
+  
   
   protected WorlRunConfiguration worldRunConfiguration = new WorlRunConfiguration();
 
@@ -31,6 +33,7 @@ public abstract class WorldRun {
     worldRunConfiguration.setPredatorFactory(new ConstantPredatorFactory(null));
     worldRunConfiguration.setLifeFormFactory(new SimpleLifeFormFactory(null));
     worldRunConfiguration.setRepeatRuns(REPEAT_RUNS);
+    worldRunConfiguration.setBrainReportOnTicks(BRAIN_REPORT_ON_TICKS);
   }
 
   

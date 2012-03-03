@@ -24,7 +24,7 @@ public class ME {
     world.init();
   }
 
-  public void runWorld(long ticks, long reportOnTicks) throws InterruptedException {
+  public void runWorld(long ticks, long reportOnTicks, long brainReportOnTicks) throws InterruptedException {
     log.info("Report at START: ");
     log.info("================ ");
     log.info("\n" + this.getGeneralReport());
@@ -33,6 +33,11 @@ public class ME {
     for (long i = 0; i < ticks; i++) {
       if (i % 100 == 0) {
         log.debug("Ticking: " + i + " ticking ...");
+      }
+      if ( i > 0 && brainReportOnTicks > 0 && i % brainReportOnTicks == 0) {
+        for (LifeForm lifeForm : world.getLifeForms()) {
+          log.debug("lifeForm: " + lifeForm + " brain: " + lifeForm.getBrain());
+        }
       }
       world.tick();
       if (reportOnTicks > 0 && i % reportOnTicks == 0 && i > 0 && i < (ticks - 1)) {
