@@ -41,7 +41,7 @@ public class NeuronConnection {
     return signalModifier;
   }
 
-  void signal(double signal) {
+  public void signal(double signal) {
     double resultSignal;
     assert ((signal >= 0) && (signal <= 1));
 
